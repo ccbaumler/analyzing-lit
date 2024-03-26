@@ -1,0 +1,2956 @@
+---
+title: "Mastering the Literature"
+subtitle: "Distill a Scientific Domain with Bibliometric Analysis in R"
+format: 
+  revealjs:
+    theme: custom-dark.scss
+    css: [timer.css, checkbox.css]
+    preview-links: auto
+    incremental: true
+    chalkboard: 
+      buttons: false
+    auto-animate-easing: ease-in-out
+    auto-animate-unmatched: true
+    auto-animate-duration: 0.8
+from: markdown+emoji
+author: 
+  - name: Colton Baumler
+    orcid: 0000-0002-5926-7792
+    email: ccbaumler@ucdavis.edu
+    affiliations: University of California, Davis
+date: last-modified
+date-format: "dddd, [the] D[<sup style='font-size:65%;font-style:italic;'>th</sup>] [of] MMMM, YYYY"
+execute:
+  echo: true
+  warning: false
+  message: false
+  freeze: true
+---
+
+# Overview
+
+::: notes
+Backward course design for teaching - "What do you want the audience to take away?"
+
+-   Basics of literature search
+    -   Which databases to use
+    -   Searching techniques
+    -   Sample size
+    -   Exporting search metadata
+    -   Filtration techniques
+-   Statistical Analysis framework
+    -   Install R and RStudio
+    -   Biblioshiny interface
+    -   Bibliometrix scripts
+    -   Readability metrics
+:::
+
+::: nonincremental
+::: columns
+::: {.column width="50%"}
+-   Background
+
+-   Databases
+:::
+
+::: {.column width="50%"}
+-   A Shiny Approach
+
+-   A Scripted Approach
+:::
+:::
+:::
+
+# Background
+
+::: nonincremental
+-   Why do I feel so bad all the time?
+
+-   What bibliometrics is?
+
+-   Why bibliometrics can help?
+:::
+
+## A foundation is key to pushing boundaries
+
+### Background
+
+::: notes
+The inherently unstructured nature of graduate school is a big hurdle to pushing the boundary of what is know - there is no guide
+:::
+
+::: columns
+Graduate school
+
+::: {.column width="75%"}
+-   Understand what is known across a domain
+-   Identify and explain something that is unknown (Preferably, coherently)
+-   Ultimately unstructured with many possible options
+:::
+
+::: {.column width="25%"}
+<input type="checkbox" id="circle-toggle"> <label for="circle-toggle" class="circle">All Scientific Knowledge</label>
+:::
+:::
+
+## [The valley of despair is the graduate school experience]{.small} {auto-animate="true"}
+
+### Background
+
+::: notes
+Imposter syndrom
+
+dunning-krueger and grant hype cycle
+
+http://www.avasthilab.org/2020/05/21/navigating-the-valley-of-despair-aka-years-4-end-of-grad-school/
+:::
+
+::: columns
+::: {.column width="50%"}
+![](images/dunning-kruger.svg)
+:::
+
+::: {.column width="50%"}
+![](images/gartner-hype.svg)
+:::
+:::
+
+## [The valley of despair is the graduate school experience]{.small} {auto-animate="true" visibility="uncounted"}
+
+### Background
+
+::: columns
+::: {.column width="75%"}
+![](images/dunning-kruger.gif)
+:::
+
+::: {.column width="25%"}
+![](images/gartner-hype.svg)
+:::
+:::
+
+## [The valley of despair is the graduate school experience]{.small} {auto-animate="true" visibility="uncounted"}
+
+### Background
+
+::: columns
+::: {.column width="25%"}
+![](images/dunning-kruger.svg)
+:::
+
+::: {.column width="75%"}
+![](images/gartner-hype.gif)
+:::
+:::
+
+## [The vallies are peak imposter syndrome]{.small} {auto-animate="true" visibility="uncounted"}
+
+### Background
+
+::: columns
+::: {.column width="50%"}
+![](images/dunning-kruger-imposter.svg)
+:::
+
+::: {.column width="50%"}
+![](images/gartner-hype-imposter.svg)
+:::
+:::
+
+## [Bibliometrics provides an accesible framework for equitable scholarship]{.smaller}
+
+### Background
+
+["\[Bibliometrics is\] The measurement of all aspects related to the publication and reading of books and documents."](https://www.nature.com/articles/510218e)
+
+::: columns
+::: {.column width="50%"}
+-   [Bibliometrics uses]{.fragment}
+
+    -   Archival database
+    -   Article metadata
+    -   Statistical analysis
+:::
+
+::: {.column width="50%"}
+-   [Bibliometrics answers]{.fragment}
+
+    -   where the field has grown from
+    -   its most relevant articles
+    -   its emerging topics
+:::
+:::
+
+## [Minimize your time in the Valley with bibliometrics]{style="font-size:0.80em;"}
+
+### Background
+
+-   General bibliometric science yields:
+    -   A solid foundation of the necessary concepts
+    -   The questions answered by the field
+    -   Some open areas of discovery within the field
+-   My purposed use of a bibliometric framework
+    -   Use **reproducible** methods
+    -   for **systematic** evaluation
+    -   in a **quantifiable** way!
+    -   Ultimately, ending with justifiable literature for your needs
+
+# Databases
+
+::: nonincremental
+-   Basics of literature search
+    -   Which databases to use
+    -   Searching techniques
+    -   Sample size
+    -   Exporting search metadata
+    -   Filtration techniques
+:::
+
+## [Your database choice ***will*** affect your results]{style="font-size:0.80em"}
+
+### Databases
+
+::: notes
+[Each database has its benefits and drawbacks](https://direct.mit.edu/qss/article/2/1/20/97574/Large-scale-comparison-of-bibliographic-data), but scopus and web of science are the competing standard. They also have the best metadata curation for our analysis
+
+https://paperpile.com/g/academic-research-databases/
+:::
+
+Databases focus on different levels of content selection, curation, and comprehensiveness.
+
+::: nonincremental
+::: columns
+::: {.column width="50%"}
+-   Web of Science (WoS)
+-   Scopus
+-   PubMed
+-   Dimensions
+-   CrossRef
+:::
+
+::: {.column width="50%"}
+::: {data-id="text"}
+-   Semantic Scholar
+-   Microsoft Academic
+-   Lens.org
+-   Cochran Library
+-   Google Scholar
+:::
+:::
+:::
+:::
+
+[["Scopus and WoS compliment each others as neither resource is all inclusive"](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC1420322/)]{.smaller}
+
+## [Your database choice ***will*** affect your results]{style="font-size:0.80em"}
+
+### Databases
+
+::: notes
+[Each database has its benefits and drawbacks](https://direct.mit.edu/qss/article/2/1/20/97574/Large-scale-comparison-of-bibliographic-data), but scopus and web of science are the competing standard. They also have the best metadata curation for our analysis
+
+https://paperpile.com/g/academic-research-databases/
+:::
+
+Databases focus on different levels of content selection, curation, and comprehensiveness.
+
+::: nonincremental
+::: columns
+::: {.column width="50%"}
+-   **Web of Science (WoS)**
+-   **Scopus**
+-   **PubMed**
+-   [Dimensions]{.op style="font-size: 0.75em"}
+-   [CrossRef]{.op style="font-size: 0.75em"}
+:::
+
+::: {.column width="50%"}
+::: {.op style="font-size: 0.75em"}
+-   Semantic Scholar
+-   Microsoft Academic
+-   Lens.org
+-   Cochran Library
+-   Google Scholar
+:::
+:::
+:::
+:::
+
+[["Scopus and WOS compliment each others as neither resource is all inclusive"](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC1420322/)]{.smaller}
+
+## WoS
+
+### Databases
+
+Mulidisciplinary
+
+2.4 billion references (1864 to present)
+
+[https://clarivate.libguides.com/webofscienceplatform/coverage, accessed: 18/12/2023]{.smaller}
+
+## Scopus
+
+### Databases
+
+Multidisciplinary (240 disciplines)
+
+![Scopus includes... (https://www.elsevier.com/products/scopus/content, accessed: 19/12/2023)](images/Scopus_Numbers_Image_15_Nov_2023_whitebackground.webp)
+
+## PubMed
+
+### Databases
+
+Only life science and biomedical disciplines
+
+36 million citations and abstracts with links to full text
+
+[https://pubmed.ncbi.nlm.nih.gov/about/, accessed: 18/12/2023]{.smaller}
+
+## Vocabulary is vital for a good search! {.smaller}
+
+### Databases
+
+controlled vocabulary thesaurus
+
+-   [**Me**dical **S**ubject **H**eadings (MeSH) Tree](https://meshb.nlm.nih.gov/)
+-   Search "controlled vocabulary thesaurus for \[biology\]"
+
+::: {.fragment}
+Try [ChatGPT](https://chat.openai.com/)?
+
+> What are keywords for \[microbial metagenomic metabolomic metabolite cancer research\]?
+
+> Create a controlled vocabulary for \[microbial metagenomic metabolomic metabolite cancer research\].
+
+:::
+
+## [Wildcards allow the capture of many individual words]{style="font-size:0.80em;"}
+
+### Databases
+
+::: {style="font-size: 0.75em"}
+| Wildcard Charater | Definition                                | Example | Result                                           |
+|:-----------------:|:-----------------|:-----------------:|:-----------------|
+|        \*         | Any amount of character/s to include zero | `*man`  | `man, woman, human, superman, superwoman, {etc}` |
+|         ?         | Any single character                      | `wom?n` | `woman, women`                                   |
+|   \$ (WoS only)   | Any single or no character                | `$$man` | `woman, man, human`                              |
+
+: Wildcards {#tbl-wd}
+:::
+
+## [Boolean operators are vital to focus a corpus]{style="font-size:0.80em;"}
+
+### Databases
+
+::: vscroll
+::: {style="font-size: 0.75em"}
+|     Operator      | Affect on Search | Definition                                                                           | Example                               |
+|:------------------:|:-----------------|:-----------------|:-----------------|
+|      **AND**      | Narrows          | Intersects *all* terms separated by operator                                               | `migration AND butterfl*`            |
+|      **OR**       | Broadens         | Unites *any* and *all* terms separated by operator                                     | `migration OR butterfl*`             |
+|      **NOT**      | Narrows          | Excludes term following operator                                                     | `migration AND bird* NOT butterfl*` |
+|  **NEAR/x**(WoS)  | Narrows          | Find terms joined by operator *near* each other by $x$ words                         | `America NEAR/10 butterfly`           |
+|   **SAME**(WoS)   | Narrows          | Find terms joined by operator if in the *same* sentence                              | `America SAME butterfly`              |
+|  **W/n**(Scopus)  | Narrows          | Find terms joined by operator *within* each other by $n$ words                       | `American W/10 butterfly`             |
+| **Pre/n**(Scopus) | Narrows          | Find terms where *preceeding* term to operator is within $n$ words of following term | `American Pre/3 butterfly`            |
+
+: Boolean Operators {#tbl-bo}
+:::
+:::
+
+## Searching by phrase may simplify a search
+
+### Databases
+
+::: {style="font-size: 0.75em"}
+|    Phrase type    |       Example        |                       Search                       |
+|:----------------------:|:----------------------:|:----------------------:|
+|     **Loose**     | `"phrase searching"` | `phrase search, phrase searches, phrase searching` |
+| **Exact**(Scopus) | `{phrase searching}` |                 `phrase searching`                 |
+
+: Pharse Searching {#tbl-ps}
+:::
+
+::: notes
+lemmatization and stemming (i.e. techniques to reduce words to their root form)
+
+loose allows for wildcards to be included in the quotations. exact will search for the exact characters inbetween the curly braces (do not include wildcards)
+:::
+
+## [Combine all search techniques for the best corpus results]{.small} {auto-animate="true"}
+
+### Databases
+
+WoS = 184
+
+::: {.smaller data-id="wos"}
+> ALL=(("colorectal cancer\*" OR "colorectal neoplas\*" OR "adenomatous polyposis coli" OR "colon\* neoplas\*" OR "rectal neoplas\*" OR "hereditary nonpolypo\*") AND ("metagenom\*" AND "metabol\*"))
+:::
+
+Scopus = 367 & PubMed = 248
+
+::: {.smaller data-id="scopus"}
+> TITLE-ABS-KEY ( "colorectal cancer\*" OR "colorectal neoplas\*" OR "adenomatous polyposis coli" OR "colon\* neoplas\*" OR "rectal neoplas\*" OR "hereditary nonpolypo\*" AND "metagenom\*" AND "metabol\*" )
+:::
+
+## [Combine all search techniques for the best corpus results]{.small} {auto-animate="true"}
+
+### Databases
+
+WoS = 184
+
+::: {.small data-id="wos"}
+> ALL=([**(**]{style="color: red;"}"colorectal cancer\*" OR "colorectal neoplas\*" OR "adenomatous polyposis coli" OR "colon\* neoplas\*" OR "rectal neoplas\*" OR "hereditary nonpolypo\*"[**) AND (**]{style="color: red;"}metagenom\*" AND "metabol\*"[**)**]{style="color: red;"})
+:::
+
+Scopus = 367 & PubMed = 248
+
+::: {.smaller data-id="scopus"}
+> TITLE-ABS-KEY ( "colorectal cancer\*" OR "colorectal neoplas\*" OR "adenomatous polyposis coli" OR "colon\* neoplas\*" OR "rectal neoplas\*" OR "hereditary nonpolypo\*" AND "metagenom\*" AND "metabol\*" )
+:::
+
+## [Sample Size goals of 500 - 1500 (i.e. ~1000) articles]{.small}
+
+### Databases
+
+```{r powerSim, echo=FALSE}
+#| echo: false
+#| eval: true
+# create a set of functions to generate simulated results
+library(tidyverse)
+
+powerDf <-
+  expand.grid(
+    sampSizePerGroup = ( 12 * 2^(0:7) ),
+    effectSize = c(.2, .5, .8),
+    alpha = c(0.005, 0.05)
+  ) %>%
+  tidyr::expand(effectSize, sampSizePerGroup, alpha) %>%
+  group_by(effectSize, sampSizePerGroup, alpha)
+
+runPowerSim <- function(df, nsims = 1000) {
+  p <- array(NA, dim = nsims)
+  for (s in 1:nsims) {
+    data <- data.frame(
+      y = rnorm(df$sampSizePerGroup * 2),
+      group = array(0, dim = df$sampSizePerGroup * 2)
+    )
+
+    data$group[1:df$sampSizePerGroup] <- 1
+    data$y[data$group == 1] <- data$y[data$group == 1] + df$effectSize
+    tt <- t.test(y ~ group, data = data)
+    p[s] <- tt$p.value
+  }
+  return(data.frame(power = mean(p < df$alpha)))
+}
+
+# run the simulation
+powerSimResults <- powerDf %>%
+  do(runPowerSim(.))
+
+```
+
+
+```{r plotPowerSim,echo=FALSE,fig.cap="Results from power simulation, showing power as a function of sample size, with effect sizes shown as different colors, and alpha shown as line type. The standard criterion of 80 percent power is shown by the dotted black line.",fig.width=6,fig.height=4,out.height='50%'}
+#| echo: false
+#| eval: true
+ggplot(powerSimResults,
+       aes(sampSizePerGroup,power,color=as.factor(effectSize),linetype=as.factor(alpha))) +
+  geom_line(size=1) +
+  annotate('segment',x=0,xend=max(powerDf$sampSizePerGroup),
+           y=0.8,yend=0.8,linetype='dotted',size=.5) +
+  scale_x_continuous( breaks=unique(powerDf$sampSizePerGroup)) +
+  labs(
+    color = "Effect size",
+    x = "Sample size",
+    y = "Power",
+    linetype = "alpha"
+  )
+```
+
+## [Filtration techniques are whatever work for you]{.small}
+
+### Databases
+
+::: {.notes}
+Prisma https://www.sciencedirect.com/science/article/pii/S0895435609001802?via%3Dihub
+
+80-20 method while scrolling through database? refer to a better way - metagear here?
+:::
+
+::: {.columns}
+:::: {.column width="65%"}
+![](images/prisma.png)
+::::
+
+:::: {.column width="35%"}
+Literature filtration
+
+- Prisma
+- 80:20
+- `metagear`?
+::::
+:::
+
+## [Signing up, search and exporting can be nuianced]{.small}
+
+### Databases 
+
+- Using a university email register for scop - wos 
+    - pubmed does not require registration
+
+-   Export limitations 
+
+::: {.columns}
+:::: {.column width="33%"}
+
+-
+  - Scopus 
+    - bibtex 
+    - full record 
+    - 20,000 
+
+::::
+
+:::: {.column width="33%"}
+- 
+  - WoS 
+    - plaintext or bibtex 
+    - custom selection
+    - 1000
+
+::::
+
+:::: {.column width="33%"}
+- 
+  - PubMed 
+    - plaintext
+    - pubmed format
+    - 10,000 
+
+::::
+:::
+
+## Build a corpus for your interests
+
+### Databases
+
+Focus on [WoS]() and [Scopus](https://www.scopus.com)
+
+::: {.notes}
+Keep in mind, from this point on a literature search should only ever take a maximum of 10-15 minutes.
+
+Refer back to @tbl-wd, @tbl-bo, @tbl-ps
+:::
+
+```{r}
+#| echo: false
+countdown::countdown(minutes = 10, seconds = 0, warn_when = 120, 
+                     right = "0%", top = "0%",
+                     blink_colon = TRUE, id = "special_timer")
+```
+
+::: vscroll
+::: {#tbl-panel layout-ncol="1"}
+::: {style="font-size: 0.75em"}
+<hr/>
+
+| Wildcard Charater | Definition                                | Example | Result                                           |
+|:-----------------:|:-----------------|:-----------------:|:-----------------|
+|        \*         | Any amount of character/s to include zero | `*man`  | `man, woman, human, superman, superwoman, {etc}` |
+|         ?         | Any single character                      | `wom?n` | `woman, women`                                   |
+|   \$ (WoS only)   | Any single or no character                | `$$man` | `woman, man, human`                              |
+
+: Wildcards
+:::
+
+::: {style="font-size: 0.75em"}
+<hr/>
+
+|     Operator      | Affect on Search | Definition                                                                           | Example                               |
+|:------------------:|:-----------------|:-----------------|:-----------------|
+|      **AND**      | Narrows          | Find *all* terms separated by operator                                               | `migration AND butterfl\*`            |
+|      **OR**       | Broadens         | Find *any* and *all* terms separated by operator                                     | `migration OR butterfl\*`             |
+|      **NOT**      | Narrows          | Excludes term following operator                                                     | `migration AND bird\* NOT butterfl\*` |
+|  **NEAR/x**(WoS)  | Narrows          | Find terms joined by operator *near* each other by $x$ words                         | `America NEAR/10 butterfly`           |
+|   **SAME**(WoS)   | Narrows          | Find terms joined by operator if in the *same* sentence                              | `America SAME butterfly`              |
+|  **W/n**(Scopus)  | Narrows          | Find terms joined by operator *within* each other by $n$ words                       | `American W/10 butterfly`             |
+| **Pre/n**(Scopus) | Narrows          | Find terms where *preceeding* term to operator is within $n$ words of following term | `American Pre/3 butterfly`            |
+
+: Boolean Operators
+:::
+
+::: {style="font-size: 0.75em"}
+<hr/>
+
+|    Phrase type    |       Example        |                       Search                       |
+|:----------------------:|:----------------------:|:----------------------:|
+|     **Loose**     | `"phrase searching"` | `phrase search, phrase searches, phrase searching` |
+| **Exact**(Scopus) | `{phrase searching}` |                 `phrase searching`                 |
+
+: Phrase Searching
+:::
+
+Wildcards, Boolean Operators, Phrase Searching
+:::
+:::
+
+# A Shiny Approach
+
+::: nonincremental
+-   The Bibliometrix package
+-   Biblioshiny interface
+-   Some standard bibliometric plots
+:::
+
+## [Install, load, and run `biblioshiny()` in almost no code]{.small}
+
+### A Shiny Approach
+
+::: notes
+https://stat.ethz.ch/R-manual/R-devel/library/base/html/ns-dblcolon.html double colon operator (pkg::name)
+:::
+
+::: panel-tabset
+#### Install
+
+```{r}
+#| eval: false
+#| echo: true
+# Install the bibliometrix package
+
+install.packages('bibliometrix')
+```
+
+#### Load
+
+```{r}
+#| eval: false
+#| echo: true
+# Load the bibliometrix library
+
+library(bibliometrix) # Load and analyze bibliograpic data
+```
+
+#### Run
+
+```{r}
+#| eval: false
+#| echo: true
+# Run the biblioshiny shiny application
+
+biblioshiny()
+```
+
+#### Quicker?
+
+```{r}
+#| eval: false
+#| echo: true
+# Install the bibliometrix package
+
+install.packages('bibliometrix')
+
+# Lazy load and Run the biblioshiny shiny application
+
+bibliometrix::biblioshiny()
+```
+:::
+
+## Your console should look like...
+
+### A Shiny Approach
+
+![Image of biblioshiny script in console](images/biblioshiny-console.png)
+
+## This is the landing page every time
+
+### A Shiny Approach
+
+![Image of biblioshiny landing page](images/biblioshiny-landing.png)
+
+## Loading allows only a single file...
+
+### A Shiny Approach
+
+![Image of biblioshiny ready to load data](images/biblioshiny-load-data.png)
+
+## Metadata report of my corpus
+
+### A Shiny Approach
+
+![Image of the biblioshiny loaded data report](images/biblioshiny-loaded-data.png)
+
+## Loaded data in tabular form
+
+### A Shiny Approach
+
+![Image of biblioshiny with data loaded](images/biblioshiny-loaded-data2.png)
+
+## Relavant sources to include in my RSS feeds
+
+### A Shiny Approach
+
+![Image of biblioshiny most relevant sources lolli pop plot](images/biblioshiny-sources.png)
+
+## [The most cited documents across the database]{.small}
+
+### A Shiny Approach
+
+![Image of biblioshiny most globally cited lolli pop plot](images/biblioshiny-cited-lolliplot.png)
+
+::: notes
+"GC: Global Citation Counts the number of citations that an article in the collection has received from all the publications indexed in the source (In this paper: Retrieved from Scopus)"
+
+"LC: Local Citation Counts the number of citations a document received from other articles in the collection (Calculated by Bibliometrix based on the references cited by the papers within the collection)"
+
+https://www.sciencedirect.com/science/article/pii/S2405844023002530?via%3Dihub
+:::
+
+## [A normalized citation count allows for more current articles]{.small}
+
+### A Shiny Approach
+
+![Image of biblioshiny most globally cited table organized by normalized total citations (NTC)](images/biblioshiny-cited-table.png)
+
+::: notes
+"GC: Global Citation Counts the number of citations that an article in the collection has received from all the publications indexed in the source (In this paper: Retrieved from Scopus)"
+
+"LC: Local Citation Counts the number of citations a document received from other articles in the collection (Calculated by Bibliometrix based on the references cited by the papers within the collection)"
+
+https://www.sciencedirect.com/science/article/pii/S2405844023002530?via%3Dihub
+:::
+
+## [A longitudinal network focuses in on local seminal papers]{.small}
+
+### A Shiny Approach
+
+![Image of biblioshiny historiograph plot](images/biblioshiny-historiograph.png)
+
+## [Peaks within the 5 year median may be cornerstone papers]{.small}
+
+### A Shiny Approach
+
+![Image of biblioshiny reference publication year spectroscopy plot (1970-2022)](images/biblioshiny-rpys.png)
+
+## At a small peak no papers stand out
+
+### A Shiny Approach
+
+![Image of biblioshiny reference publication year spectroscopy table (2000)](images/biblioshiny-rpys-2000.png)
+
+## At greater peaks, some articles outlie the norm
+
+### A Shiny Approach
+
+![Image of biblioshiny reference publication year spectroscopy table (2009)](images/biblioshiny-rpys-2009.png)
+
+## At greater peaks, some articles outlie the norm
+
+### A Shiny Approach
+
+![Image of biblioshiny reference publication year spectroscopy table (2012)](images/biblioshiny-rpys-2012.png)
+
+## Explore the corpus you have created
+
+### A Shiny Approach
+
+-   [First four sections - Domain focus at four different analyses](https://bibliometrix.org/biblioshiny/biblioshiny2.html)
+    -   For example, the `Sources` section is a great level for refining the journals in your RSS feed!
+-   [Last three sections - Knowledge structures for rapid synthesis of understanding](https://bibliometrix.org/biblioshiny/biblioshiny3.html)
+    -   For example, the `Conceptual Structure` is a great section for rapidly identifying key themes, trends, and keywords that are best to fundamentally understand or include in your controlled vocabulary thesuarus!
+
+```{r}
+#| echo: false
+countdown::countdown(minutes = 10, seconds = 0, warn_when = 120, 
+                     right = "0%", top = "0%",
+                     blink_colon = TRUE, id = "special_timer")
+```
+
+# A Scripted Approach
+
+::: nonincremental
+-   Replicate `biblioshiny()` plots
+
+-   Examine, plot, and summarize data
+
+-   Deeply understand some functions
+
+-   Integrate R script output with Zotero
+:::
+
+::: notes
+To unlock the potential of a single library or package, need a script and other complimentary packages
+:::
+
+## Knowing which Libraries to use is hard
+
+### A Scripted Approach
+
+::: panel-tabset
+#### Libraries
+
+```{r}
+library(bibliometrix) # Load and analyze bibliograpic data
+
+library(tidyverse) # Organize the data structures
+
+library(DT) # Make a dynamic table
+
+library(gt) # Make a pretty table
+
+library(rentrez) # Access the NCBI database through CLI
+
+library(easyPubMed) # Extract metadata from PubMed
+
+library(xml2) # Simple interface for parsing xml format
+
+library(metagear) # Rapidly assess many articles and more
+
+library(clipr) # Read and write to clipboard
+
+library(quanteda.textstats) # Analysis tool for readability
+```
+
+#### Function
+
+::: notes
+[Add `#| tidy.opts: { width.cutoff: 60 }` to the code block](https://stackoverflow.com/questions/76406452/wrap-horizontal-code-overflow-in-quarto-revealjs)
+:::
+
+```{r}
+#| eval: true
+#| echo: true
+#| output-location: column
+# Load required package for timeout handling
+if (!requireNamespace("R.utils", quietly = TRUE)) {
+    install.packages("R.utils")
+}
+library(R.utils)
+
+# Short script to check for packages, load them, or install and load them if available.
+boomstick <- function (packages) {
+  for (package_name in packages) {
+    '%!in%' <- function(x,y)!('%in%'(x,y))
+    
+    if (paste("package:", package_name, sep = '') %in% search()) {
+              cat("Package", package_name, "is loaded\n")
+              next
+    }  else {
+       if (!requireNamespace(package_name, quietly = TRUE)) {
+          cat("Package", package_name, "not found. Installing...\n")
+          
+          # Check if the package is available
+          available <- tryCatch(
+              available.packages()[package_name, ],
+              error = function(e) NULL
+          )
+          
+          if (is.null(available)) {
+              cat("Package", package_name, "is not available on CRAN.\n")
+              next
+          }
+          
+          # Try installing the package with a timeout of 300 seconds (adjust as needed)
+          tryCatch(
+              withTimeout(
+                  install.packages(package_name, ask = FALSE, dependencies = TRUE),
+                  timeout = 300
+              ),
+              TimeoutException = function(e) {
+                  cat("Package", package_name, "installation timed out\n")
+              },
+              error = function(e) {
+                  cat("Package", package_name, "installation failed\n")
+              }
+            )
+            
+            # Try loading the package again after installation
+            if (!requireNamespace(package_name, quietly = TRUE)) {
+                cat("Package", package_name, "loading failed\n")
+                next
+            } else if (paste("package:", package_name, sep = '') %!in% search()) {
+              attachNamespace(package_name)
+              cat("Package", package_name, "loaded and ready\n")
+              next
+            }
+    
+       } else if (paste("package:", package_name, sep = '') %!in% search()) {
+              attachNamespace(package_name)
+              cat("Package", package_name, "loaded and ready\n")
+       }
+    }
+  }
+}
+
+libraries <- c("bibliometrix", "tidyverse", "DT", "gt", "easyPubMed", "xml2", "metagear", "clipr", "quanteda.textstats")  # Change/Add more package names as needed
+boomstick(libraries)
+```
+:::
+
+## Simple file convertion to a dataframe!
+
+### A Scripted Approach
+
+::: panel-tabset
+#### [Bibliographic dataframes]{style="font-size:0.80em;"}
+
+```{r, results='hide'}
+wos <- convert2df(file = "data/wos-plaintext-savedrecs.txt", dbsource="wos",format="plaintext")
+
+scopus <- convert2df(file = "data/scopus-bib-crc.bib", dbsource = "scopus", format = "bibtex")
+
+pubmed <- convert2df(file = "data/pubmed-plaintext-colorectal-set.txt", dbsource = "pubmed", format = "plaintext")
+```
+
+#### [Concise bibliographic dataframes]{style="font-size:0.80em;"}
+
+::: notes
+`#| classes: styled-output` to change the output code block to have a white boarder
+:::
+
+```{r}
+fulldb <- mergeDbSources(wos, scopus, pubmed, remove.duplicated = TRUE)
+```
+:::
+
+## [Examining the data to understand how to use it]{.small}
+
+### A Scripted Approach
+
+::: notes
+[As always and with most things, trust in yourself and your expertise! ... but, also verify.]{style="font-size:0.8em;"}
+:::
+
+::: panel-tabset
+#### wos
+
+```{r}
+#| echo: false
+#| eval: true
+glimpse(wos)
+```
+
+#### scopus
+
+```{r}
+#| echo: false
+#| eval: true
+glimpse(scopus)
+```
+
+#### pubmed
+
+```{r}
+#| echo: false
+#| eval: true
+glimpse(pubmed)
+```
+
+#### fulldb
+
+```{r}
+#| echo: false
+#| eval: true
+glimpse(fulldb)
+```
+
+#### Code
+
+```{r}
+#| echo: true
+#| eval: false
+#| class: vscrolling
+# The following two functions quickly print out the class of object created
+# and show us what is in that object
+class(fulldb) # `[1] "bibliometrixDB" "data.frame"    `
+glimpse(fulldb)
+
+# Additionally, we can save the 
+# fulldb bibliometrix file.
+# Saving the dataframe is not necessary,
+# but it is a suggestion for reproducibility
+saveRDS(fulldb, file = "wos-scopus-pubmed-fdb.rds")
+```
+:::
+
+## A quick assessment of a function also helps!
+
+### A Scripted Approach
+
+::: fragment
+Make a dataframe with duplicates
+
+```{r}
+fulldb_wdup <- mergeDbSources(wos, scopus, pubmed,
+                              remove.duplicated = FALSE)
+```
+:::
+
+::: fragment
+Inspect the row count of the databases
+
+```{r}
+#| output-location: column-fragment
+a <- nrow(fulldb)
+
+b <- nrow(fulldb_wdup)
+
+c <- sum(nrow(wos)+nrow(scopus)+nrow(pubmed))
+
+cat("The row counts without duplications, with duplications, and all individual dataframes combined :", "",
+    a, b, c, sep = "\n")
+```
+:::
+
+## The initial analysis is easily implemented
+
+### A Scripted Approach
+
+::: notes
+Highlight sources from the `summary()` function for RSS feeds
+:::
+
+::: panel-tabset
+#### Results
+
+```{r}
+results <- biblioAnalysis(fulldb)
+```
+
+#### Summarize
+
+```{r}
+summary(results)
+```
+
+#### Plot
+
+```{r}
+#| class: vscroll
+plot(results)
+```
+:::
+
+## `glimpse` is great to examine `results`
+
+### A Scripted Approach
+
+::: notes
+and try `glimpse(results)`
+:::
+
+::: panel-tabset
+##### Most Cited
+
+```{r}
+glimpse(results[["MostCitedPapers"]])
+```
+
+##### Sources
+
+```{r}
+glimpse(results[["Sources"]])
+```
+
+##### Authors
+
+```{r}
+glimpse(results[["Authors"]])
+```
+
+##### Author Keywords
+
+```{r}
+glimpse(results[["DE"]])
+```
+
+##### Article Keywords
+
+```{r}
+glimpse(results[["ID"]])
+```
+:::
+
+## [Well organized, dynamic table for easy reading of most cited articles]{style="font-size:0.70em;"}
+
+### A Scripted Approach
+
+::: panel-tabset
+#### Table
+
+```{r}
+#| eval: true
+#| echo: false
+mcp <- results[["MostCitedPapers"]] %>%  # separate most cited papers
+  arrange(desc(NTC)) %>%                 # arranging by norm. citation count
+  mutate(across(where(is.numeric), round, 3)) %>%
+  mutate(Links = sprintf('<a href = "https://www.doi.org/%s">%s</a>', 
+                          DOI,
+                          "To Paper"
+                         ),
+         Links = lapply(Links, gt::html)) %>% # hyperlinking doi
+  relocate(Links, NTC, TC, TCperYear, .before = DOI) # relocating column for aes.
+```
+
+```{r}
+#| eval: true
+#| echo: false
+mcp %>% DT::datatable(extensions = 'Scroller', 
+                options = list(
+  deferRender = TRUE,
+  scrollY = 300,
+  scroller = TRUE,
+             columnDefs = list(
+                         list(
+                           targets = "_all",
+                           render = JS(
+  "function(data, type, row, meta) {",
+  "return type === 'display' && data.length > 10 ?",
+  "'<span title=\"' + data + '\">' + data.substr(0, 10) + '...</span>' : data;",
+  "}"))),
+      initComplete = JS(
+    "function(settings, json) {",
+    "$(this.api().table().container()).css({'background-color': '#fff', 'color': '#000'});",
+    "}")),
+  rownames = FALSE)
+```
+
+#### Code
+
+```{r}
+#| eval: false
+#| echo: true
+mcp <- results[["MostCitedPapers"]] %>%  # separate most cited papers
+  arrange(desc(NTC)) %>%                 # arranging by norm. citation count
+  mutate(across(where(is.numeric), round, 3)) %>%
+  mutate(Links = sprintf('<a href = "https://www.doi.org/%s">%s</a>', 
+                          DOI,
+                          "To Paper"
+                         ),
+         Links = lapply(Links, gt::html)) %>% # hyperlinking doi
+  relocate(Links, NTC, TC, TCperYear, .before = DOI) # relocating column for aes.
+```
+
+#### Description
+
+A table:
+
+::: nonincremental
+-   The most globally cited articles
+-   Order by quantity of citations
+-   From the combined dataframe
+:::
+:::
+
+## Extract citation data with simple functions
+
+### A Scripted Approach
+
+```{r}
+# Frequency distribution of local citations
+CR <- citations(fulldb)
+# or...
+LC <- localCitations(fulldb)
+```
+
+## A few base functions are great to examine data
+
+### A Scripted Approach
+
+::: notes
+We can summarize the list components. This output reads that our large list has three elements, each of length 32598. `Cited` is a `table` object containing integers, `Year` is a vector containing doubles, and `Source` is a vector containing characters. Try `class()` and `typeof()` on each element. [See here for more information](https://swcarpentry.github.io/r-novice-inflammation/13-supp-data-structures)
+
+In our glimpse of `CR`, we saw that the `Cited` table contains an `attr`. This is known as an attribute. It is a way to store metadata pertaining to some set of data. Here we see that the first 6 entries of `CR$Cited` have attributes that look like the citations of an article.
+
+These attributes are metadata stored as row names.
+:::
+
+::: panel-tabset
+#### summary
+
+```{r}
+summary(CR)
+```
+
+#### glimpse
+
+```{r}
+glimpse(CR)
+```
+
+#### class
+
+```{r}
+class(CR)
+```
+
+#### typeof
+
+```{r}
+typeof(CR)
+```
+
+#### attributes
+
+```{r}
+attributes(head(CR$Cited))
+```
+
+#### rownames
+
+```{r}
+rownames(head(CR$Cited))
+```
+:::
+
+## [Well organized, dynamic table for easy reading of local citations]{style="font-size:0.70em;"}
+
+### A Scripted Approach
+
+::: panel-tabset
+#### Table
+
+```{r}
+#| echo: false
+#| eval: true
+mcp_year <- CR %>%
+  as.data.frame() %>%
+  mutate(DOI = sub(".* DOI ", "", Cited.CR)) %>%
+  mutate(Links = sprintf('<a href = "https://www.doi.org/%s">%s</a>', 
+                          DOI,
+                          "To Paper"
+                         ),
+         Links = lapply(Links, gt::html)) %>%
+  group_by(Year) %>%
+  slice_head(n = 5) %>%
+  filter(Cited.Freq >= 3) %>%
+  arrange(desc(Cited.Freq), desc(Year)) %>%
+  relocate(Links, .before = Source) 
+```
+
+```{r}
+#| eval: true
+#| echo: false
+mcp_year %>% DT::datatable(extensions = 'Scroller', 
+                options = list(
+  deferRender = TRUE,
+  scrollY = 300,
+  scroller = TRUE,
+             columnDefs = list(
+                         list(
+                           targets = "_all",
+                           render = JS(
+  "function(data, type, row, meta) {",
+  "return type === 'display' && data.length > 10 ?",
+  "'<span title=\"' + data + '\">' + data.substr(0, 10) + '...</span>' : data;",
+  "}"))),
+      initComplete = JS(
+    "function(settings, json) {",
+    "$(this.api().table().container()).css({'background-color': '#fff', 'color': '#000'});",
+    "}")),
+  rownames = FALSE)
+```
+
+#### Code
+
+```{r}
+#| echo: true
+#| eval: false
+mcp_year <- CR %>%
+  as.data.frame() %>%
+  mutate(DOI = sub(".* DOI ", "", Cited.CR)) %>%
+  mutate(Links = sprintf('<a href = "https://www.doi.org/%s">%s</a>', 
+                          DOI,
+                          "To Paper"
+                         ),
+         Links = lapply(Links, gt::html)) %>%
+  group_by(Year) %>%
+  slice_head(n = 5) %>%
+  filter(Cited.Freq >= 3) %>%
+  arrange(desc(Cited.Freq), desc(Year)) %>%
+  relocate(Links, .before = Source) 
+```
+
+#### Description
+
+A table:
+
+::: nonincremental
+-   The most locally cited articles
+-   Order by quantity of citations
+-   From the combined dataframe
+:::
+:::
+
+## [Historiographs are easy to implement but difficult to read]{.small}
+
+### A Scripted Approach
+
+::: panel-tabset
+#### Results
+
+```{r}
+histResults <- histNetwork(fulldb)
+```
+
+#### Network
+
+```{r}
+#| eval: false
+#| echo: true
+net <- histPlot(histResults, n=55, size = 3, labelsize = 4, verbose = TRUE)
+```
+
+```{r}
+#| eval: true
+#| echo: false
+#| class: vscroll
+net <- histPlot(histResults, n=55, size = 3, labelsize = 4, verbose = TRUE)
+```
+:::
+
+## Improving visualization can be a few lines away
+
+### A Scripted Approach
+
+::: notes
+These are internal functions found within [the `bibliometrix` github repository](https://github.com/massimoaria/bibliometrix).
+:::
+
+::: panel-tabset
+#### A Prettier Plot
+
+```{r, warning=FALSE}
+#| echo: false
+#| eval: true
+#| class: vscroll
+colorlist <- function(){
+  c("#E41A1C","#377EB8","#4DAF4A","#984EA3","#FF7F00","#A65628","#F781BF","#999999","#66C2A5","#FC8D62","#8DA0CB","#E78AC3","#A6D854","#FFD92F"
+             ,"#B3B3B3","#A6CEE3","#1F78B4","#B2DF8A","#33A02C","#FB9A99","#E31A1C","#FDBF6F","#FF7F00","#CAB2D6","#6A3D9A","#B15928","#8DD3C7","#BEBADA"
+             ,"#FB8072","#80B1D3","#FDB462","#B3DE69","#D9D9D9","#BC80BD","#CCEBC5")
+}
+
+delete.isolates <- function(graph, mode = 'all') {
+  isolates <- which(igraph::degree(graph, mode = mode) == 0) - 1
+  igraph::delete.vertices(graph, names(isolates))
+}
+
+geom_network_edges <- function(
+    mapping = NULL,
+    data = NULL,
+    position = "identity",
+    arrow = NULL,
+    curvature = 0,
+    angle = 90,
+    ncp = 5,
+    na.rm = FALSE,
+    show.legend = NA,
+    inherit.aes = TRUE,
+    ...
+) {
+  if (!curvature) {
+    geom <- ggplot2::GeomSegment
+    params <- list(arrow = arrow, na.rm = na.rm, ...)
+  } else {
+    geom <- ggplot2::GeomCurve
+    params <- list(
+      arrow = arrow,
+      curvature = curvature,
+      angle = angle,
+      ncp = ncp,
+      na.rm = na.rm,
+      ...
+    )
+  }
+
+  ggplot2::layer(
+    data = data,
+    mapping = mapping,
+    stat = StatEdges,
+    geom = geom,
+    position = position,
+    show.legend = show.legend,
+    inherit.aes = inherit.aes,
+    params = params
+  )
+}
+
+StatEdges <- ggplot2::ggproto("StatEdges", ggplot2::Stat,
+                              compute_layer = function(data, scales, params) {
+                                unique(subset(data, !(x == xend & y == yend)))
+                              }
+)
+
+geom_network_nodes <- function(
+    mapping = NULL,
+    data = NULL,
+    position = "identity",
+    na.rm = FALSE,
+    show.legend = NA,
+    inherit.aes = TRUE,
+    ...
+) {
+  ggplot2::layer(
+    data = data,
+    mapping = mapping,
+    stat = StatNodes,
+    geom = ggplot2::GeomPoint,
+    position = position,
+    show.legend = show.legend,
+    inherit.aes = inherit.aes,
+    params = list(
+      na.rm = na.rm,
+      ...
+    )
+  )
+}
+
+StatNodes <- ggplot2::ggproto("StatNodes", ggplot2::Stat,
+                              compute_layer = function(data, scales, params) {
+                                if (all(c("xend", "yend") %in% names(data))) {
+                                  unique(subset(data, select = c(-xend, -yend)))
+                                } else {
+                                  unique(data)
+                                }
+                              }
+)
+
+histPlot_wide <- function (histResults, n = 20, size = 5, labelsize = 5, title_as_label = FALSE, 
+    label = "short", verbose = TRUE) 
+{
+    params <- list(n = n, size = size, labelsize = labelsize, 
+        title_as_label = title_as_label, label = label)
+    colorlist <- colorlist()
+    if (isTRUE(size)) {
+        size <- 5
+    }
+    LCS <- colSums(histResults$NetMatrix)
+    NET <- histResults$NetMatrix
+    s = sort(LCS, decreasing = TRUE)[min(n, length(LCS))]
+    ind = which(LCS >= s)
+    NET = NET[ind, ind]
+    LCS = LCS[ind]
+    bsk.network <- igraph::graph_from_adjacency_matrix(NET, mode = c("directed"), 
+        weighted = NULL)
+    R <- strsplit(names(igraph::V(bsk.network)), ",")
+    RR <- lapply(R, function(l) {
+        l = l[1:2]
+        l = paste(l[1], l[2], sep = ",")
+    })
+    igraph::V(bsk.network)$title <- histResults$histData$Title[ind]
+    igraph::V(bsk.network)$keywords <- histResults$histData$Author_Keywords[ind]
+    igraph::V(bsk.network)$keywordsplus <- histResults$histData$KeywordsPlus[ind]
+    switch(label, title = {
+        title <- strsplit(stringi::stri_trans_totitle(igraph::V(bsk.network)$title), 
+            " ")
+        igraph::V(bsk.network)$id <- unlist(lapply(title, function(l) {
+            n <- floor(length(l)/2)
+            paste0(paste(l[1:n], collapse = " ", sep = ""), "\n", 
+                paste(l[(n + 1):length(l)], collapse = " ", sep = ""))
+        }))
+    }, keywords = {
+        kw <- strsplit(stringi::stri_trans_totitle(igraph::V(bsk.network)$keywords), 
+            ";")
+        kw[is.na(kw)] <- "Not Available"
+        igraph::V(bsk.network)$id <- unlist(lapply(kw, function(l) {
+            if (length(l) > 1) {
+                n <- floor(length(l)/2)
+                l <- trimws(l)
+                paste0(paste(l[1:n], collapse = "; ", sep = ""), 
+                  "\n", paste(l[(n + 1):length(l)], collapse = "; ", 
+                    sep = ""))
+            } else {
+                l
+            }
+        }))
+    }, keywordsplus = {
+        kw <- strsplit(stringi::stri_trans_totitle(igraph::V(bsk.network)$keywordsplus), 
+            ";")
+        kw[is.na(kw)] <- "Not Available"
+        igraph::V(bsk.network)$id <- unlist(lapply(kw, function(l) {
+            if (length(l) > 1) {
+                n <- floor(length(l)/2)
+                l <- trimws(l)
+                paste0(paste(l[1:n], collapse = "; ", sep = ""), 
+                  "\n", paste(l[(n + 1):length(l)], collapse = "; ", 
+                    sep = ""))
+            } else {
+                l
+            }
+        }))
+    }, {
+        igraph::V(bsk.network)$id <- tolower(unlist(RR))
+    })
+    deg <- LCS
+    igraph::V(bsk.network)$size <- size
+    Years <- as.numeric(unlist(stringi::stri_extract_all_regex(unlist(RR), 
+        "[[:digit:]]{4}$")))
+    igraph::V(bsk.network)$years <- Years
+    bsk.network <- igraph::simplify(bsk.network, remove.multiple = T, 
+        remove.loops = T)
+    igraph::E(bsk.network)$color <- "slategray1"
+    bsk.network <- delete.isolates(bsk.network)
+    dg <- igraph::decompose.graph(bsk.network)
+    layout_m <- as.data.frame(igraph::layout.fruchterman.reingold(bsk.network))
+    names(layout_m) <- c("x", "y")
+    layout_m$name <- igraph::V(bsk.network)$name
+    layout_m$years <- igraph::V(bsk.network)$years
+    layout_m$cluster <- 0
+    rr <- 0
+    for (k in 1:length(dg)) {
+        bsk <- dg[[k]]
+        a <- ifelse(layout_m$name %in% igraph::V(bsk)$name, k, 0)
+        layout_m$cluster <- layout_m$cluster + a
+        Min <- min(layout_m$y[layout_m$cluster == k]) - 1
+        layout_m$y[layout_m$cluster == k] <- layout_m$y[layout_m$cluster == 
+            k] + (rr - Min)
+        rr <- max(layout_m$y[layout_m$cluster == k])
+    }
+    wp <- igraph::membership(igraph::cluster_infomap(bsk.network, modularity = FALSE))
+    layout_m$color <- colorlist[wp]
+    layout_m$x <- layout_m$years
+    layout_m$y <- (diff(range(layout_m$x))/diff(range(layout_m$y))) * 
+        layout_m$y
+    df_net <- igraph::as_long_data_frame(bsk.network)
+    df_net$color <- "slategray1"
+    ID <- setdiff(df_net$to, df_net$from)
+    df_from <- df_net %>% select(.data$from, .data$to, .data$color, 
+        .data$from_name, .data$from_title, .data$from_keywords, 
+        .data$from_keywordsplus, .data$from_id, .data$from_size, 
+        .data$from_years)
+    df_to <- df_net %>% dplyr::filter(.data$to %in% ID) %>% mutate(from2 = .data$to) %>% 
+        select(.data$from2, .data$to, .data$color, .data$to_name, 
+            .data$to_title, .data$to_keywords, .data$to_keywordsplus, 
+            .data$to_id, .data$to_size, .data$to_years)
+    df_to <- df_to[!duplicated(df_to$to), ]
+    label <- c("from", "to", "color", "name", "title", "keywords", 
+        "keywordsplus", "id", "size", "years")
+    names(df_from) <- label
+    names(df_to) <- label
+    df_net <- rbind(df_from, df_to)
+    layout_norm <- layout_m %>% mutate(x = (.data$x - min(.data$x))/(max(.data$x) - 
+        min(.data$x)), y = (.data$y - min(.data$y))/(max(.data$y) - 
+        min(.data$y)))
+    df_net <- left_join(df_net, layout_norm[c("name", "color", 
+        "x", "y")], by = c(name = "name")) %>% rename(color = .data$color.x, 
+        color_v = .data$color.y)
+    df_coord <- layout_norm %>% mutate(to = row_number()) %>% 
+        select(.data$to, .data$x, .data$y) %>% rename(xend = .data$x, 
+        yend = .data$y)
+    df_net <- df_net %>% left_join(df_coord, by = "to")
+    ylength <- diff(range(df_net$years)) + 1
+    Ylabel <- (as.character(seq(min(df_net$years), max(df_net$years), 
+        length.out = ylength)))
+    Breaks <- (seq(0, 1, length.out = ylength))
+    df_net <- df_net %>% left_join(histResults$histData, by = c(name = "Paper"))
+    Title <- gsub("(.{40})", "\\1\n", df_net$title)
+    df_net$Title <- unlist(lapply(Title, function(x) {
+        paste(x, "\n", collapse = "", sep = "")
+    }))
+    df_net <- df_net %>% mutate(text = paste(tolower(.data$Title), 
+        "doi: ", .data$DOI, "\nLCS: ", .data$LCS, "    GCS: ", 
+        .data$GCS, sep = ""))
+    id_label <- df_net %>% select(c(title, keywords, keywordsplus, id, color_v, x, y)) %>% 
+    distinct()
+    g <- ggplot(df_net, aes(x = .data$x, y = .data$y, xend = .data$xend, 
+        yend = .data$yend)) + geom_network_edges(color = "grey", 
+        size = 0.4, alpha = 0.4) + geom_network_nodes(aes(color = .data$color_v), 
+        size = size, alpha = 0.5) + 
+        scale_x_continuous(labels = Ylabel, breaks = Breaks) +
+        guides(size = "none", color = "none") + theme_minimal() + 
+        theme(legend.position = "none", panel.background = element_rect(fill = "white", 
+            color = "white"), axis.line.y = element_blank(), 
+            axis.text.y = element_blank(), axis.ticks.y = element_blank(), 
+            axis.title.y = element_blank(), axis.title.x = element_blank(), 
+            panel.grid.minor.y = element_blank(), panel.grid.major.y = element_blank(), 
+            panel.grid.major.x = element_line(adjustcolor(col = "grey", 
+                alpha.f = 0.2), linetype = 2, size = 0.5), panel.grid.minor.x = element_blank(), 
+            axis.text.x = element_text(face = "bold", angle = 90, 
+                size = labelsize + 4)) + labs(title = "Historical Direct Citation Network") +
+      expand_limits(x=c(-0.1,1.1)) +
+      ggrepel::geom_text_repel(inherit.aes = FALSE, data = id_label, aes(x = x, y = y, label = id, color = color_v), size = labelsize, alpha = 0.7, min.segment.length = 0, seed = 42, max.overlaps = Inf, point.size = NA) 
+    data("logo", envir = environment())
+    logo <- grid::rasterGrob(logo, interpolate = TRUE)
+    a <- ggplot_build(g)$data
+    ymin <- unlist(lapply(a, function(l) {
+        if ("y" %in% names(l)) {
+            min(l["y"])
+        }
+    })) %>% min(na.rm = TRUE)
+    ymax <- unlist(lapply(a, function(l) {
+        if ("y" %in% names(l)) {
+            max(l["y"])
+        }
+    })) %>% max(na.rm = TRUE)
+    xmin <- unlist(lapply(a, function(l) {
+        if ("x" %in% names(l)) {
+            min(l["x"])
+        }
+    })) %>% min(na.rm = TRUE)
+    xmax <- unlist(lapply(a, function(l) {
+        if ("x" %in% names(l)) {
+            max(l["x"])
+        }
+    })) %>% max(na.rm = TRUE)
+    x <- c(xmax - 0.02 - diff(c(xmin, xmax)) * 0.125, xmax - 
+        0.02)
+    y <- c(ymin, ymin + diff(c(ymin, ymax)) * 0.125) + 0.02
+    g <- g + annotation_custom(logo, xmin = x[1], xmax = x[2], 
+        ymin = y[1], ymax = y[2])
+    label <- data.frame(Label = names(igraph::V(bsk.network)))
+    Data <- histResults$histData
+    Data <- left_join(label, Data, by = c(Label = "Paper"))
+    if (isTRUE(verbose)) {
+        plot(g)
+        cat("\n Legend\n\n")
+        print(Data[, -2])
+    }
+    results <- list(net = bsk.network, g = g, graph.data = Data, 
+        layout = layout_m, axis = data.frame(label = Ylabel, 
+            values = Breaks), params = params)
+    return(g)
+}
+
+histPlot_wide(histResults, n=55, size = 3, labelsize = 4, verbose = FALSE)
+```
+
+#### histplot
+
+```{r}
+histPlot
+```
+
+#### Altered `histPlot`
+
+```{r}
+#| eval: false
+#| echo: true
+#| code-line-numbers: 136-137,142,154
+histPlot_wide <- function (histResults, n = 20, size = 5, labelsize = 5, title_as_label = FALSE, 
+    label = "short", verbose = TRUE) 
+{
+    params <- list(n = n, size = size, labelsize = labelsize, 
+        title_as_label = title_as_label, label = label)
+    colorlist <- colorlist()
+    if (isTRUE(size)) {
+        size <- 5
+    }
+    LCS <- colSums(histResults$NetMatrix)
+    NET <- histResults$NetMatrix
+    s = sort(LCS, decreasing = TRUE)[min(n, length(LCS))]
+    ind = which(LCS >= s)
+    NET = NET[ind, ind]
+    LCS = LCS[ind]
+    bsk.network <- igraph::graph_from_adjacency_matrix(NET, mode = c("directed"), 
+        weighted = NULL)
+    R <- strsplit(names(igraph::V(bsk.network)), ",")
+    RR <- lapply(R, function(l) {
+        l = l[1:2]
+        l = paste(l[1], l[2], sep = ",")
+    })
+    igraph::V(bsk.network)$title <- histResults$histData$Title[ind]
+    igraph::V(bsk.network)$keywords <- histResults$histData$Author_Keywords[ind]
+    igraph::V(bsk.network)$keywordsplus <- histResults$histData$KeywordsPlus[ind]
+    switch(label, title = {
+        title <- strsplit(stringi::stri_trans_totitle(igraph::V(bsk.network)$title), 
+            " ")
+        igraph::V(bsk.network)$id <- unlist(lapply(title, function(l) {
+            n <- floor(length(l)/2)
+            paste0(paste(l[1:n], collapse = " ", sep = ""), "\n", 
+                paste(l[(n + 1):length(l)], collapse = " ", sep = ""))
+        }))
+    }, keywords = {
+        kw <- strsplit(stringi::stri_trans_totitle(igraph::V(bsk.network)$keywords), 
+            ";")
+        kw[is.na(kw)] <- "Not Available"
+        igraph::V(bsk.network)$id <- unlist(lapply(kw, function(l) {
+            if (length(l) > 1) {
+                n <- floor(length(l)/2)
+                l <- trimws(l)
+                paste0(paste(l[1:n], collapse = "; ", sep = ""), 
+                  "\n", paste(l[(n + 1):length(l)], collapse = "; ", 
+                    sep = ""))
+            } else {
+                l
+            }
+        }))
+    }, keywordsplus = {
+        kw <- strsplit(stringi::stri_trans_totitle(igraph::V(bsk.network)$keywordsplus), 
+            ";")
+        kw[is.na(kw)] <- "Not Available"
+        igraph::V(bsk.network)$id <- unlist(lapply(kw, function(l) {
+            if (length(l) > 1) {
+                n <- floor(length(l)/2)
+                l <- trimws(l)
+                paste0(paste(l[1:n], collapse = "; ", sep = ""), 
+                  "\n", paste(l[(n + 1):length(l)], collapse = "; ", 
+                    sep = ""))
+            } else {
+                l
+            }
+        }))
+    }, {
+        igraph::V(bsk.network)$id <- tolower(unlist(RR))
+    })
+    deg <- LCS
+    igraph::V(bsk.network)$size <- size
+    Years <- as.numeric(unlist(stringi::stri_extract_all_regex(unlist(RR), 
+        "[[:digit:]]{4}$")))
+    igraph::V(bsk.network)$years <- Years
+    bsk.network <- igraph::simplify(bsk.network, remove.multiple = T, 
+        remove.loops = T)
+    igraph::E(bsk.network)$color <- "slategray1"
+    bsk.network <- delete.isolates(bsk.network)
+    dg <- igraph::decompose.graph(bsk.network)
+    layout_m <- as.data.frame(igraph::layout.fruchterman.reingold(bsk.network))
+    names(layout_m) <- c("x", "y")
+    layout_m$name <- igraph::V(bsk.network)$name
+    layout_m$years <- igraph::V(bsk.network)$years
+    layout_m$cluster <- 0
+    rr <- 0
+    for (k in 1:length(dg)) {
+        bsk <- dg[[k]]
+        a <- ifelse(layout_m$name %in% igraph::V(bsk)$name, k, 0)
+        layout_m$cluster <- layout_m$cluster + a
+        Min <- min(layout_m$y[layout_m$cluster == k]) - 1
+        layout_m$y[layout_m$cluster == k] <- layout_m$y[layout_m$cluster == 
+            k] + (rr - Min)
+        rr <- max(layout_m$y[layout_m$cluster == k])
+    }
+    wp <- igraph::membership(igraph::cluster_infomap(bsk.network, modularity = FALSE))
+    layout_m$color <- colorlist[wp]
+    layout_m$x <- layout_m$years
+    layout_m$y <- (diff(range(layout_m$x))/diff(range(layout_m$y))) * 
+        layout_m$y
+    df_net <- igraph::as_long_data_frame(bsk.network)
+    df_net$color <- "slategray1"
+    ID <- setdiff(df_net$to, df_net$from)
+    df_from <- df_net %>% select(.data$from, .data$to, .data$color, 
+        .data$from_name, .data$from_title, .data$from_keywords, 
+        .data$from_keywordsplus, .data$from_id, .data$from_size, 
+        .data$from_years)
+    df_to <- df_net %>% dplyr::filter(.data$to %in% ID) %>% mutate(from2 = .data$to) %>% 
+        select(.data$from2, .data$to, .data$color, .data$to_name, 
+            .data$to_title, .data$to_keywords, .data$to_keywordsplus, 
+            .data$to_id, .data$to_size, .data$to_years)
+    df_to <- df_to[!duplicated(df_to$to), ]
+    label <- c("from", "to", "color", "name", "title", "keywords", 
+        "keywordsplus", "id", "size", "years")
+    names(df_from) <- label
+    names(df_to) <- label
+    df_net <- rbind(df_from, df_to)
+    layout_norm <- layout_m %>% mutate(x = (.data$x - min(.data$x))/(max(.data$x) - 
+        min(.data$x)), y = (.data$y - min(.data$y))/(max(.data$y) - 
+        min(.data$y)))
+    df_net <- left_join(df_net, layout_norm[c("name", "color", 
+        "x", "y")], by = c(name = "name")) %>% rename(color = .data$color.x, 
+        color_v = .data$color.y)
+    df_coord <- layout_norm %>% mutate(to = row_number()) %>% 
+        select(.data$to, .data$x, .data$y) %>% rename(xend = .data$x, 
+        yend = .data$y)
+    df_net <- df_net %>% left_join(df_coord, by = "to")
+    ylength <- diff(range(df_net$years)) + 1
+    Ylabel <- (as.character(seq(min(df_net$years), max(df_net$years), 
+        length.out = ylength)))
+    Breaks <- (seq(0, 1, length.out = ylength))
+    df_net <- df_net %>% left_join(histResults$histData, by = c(name = "Paper"))
+    Title <- gsub("(.{40})", "\\1\n", df_net$title)
+    df_net$Title <- unlist(lapply(Title, function(x) {
+        paste(x, "\n", collapse = "", sep = "")
+    }))
+    df_net <- df_net %>% mutate(text = paste(tolower(.data$Title), 
+        "doi: ", .data$DOI, "\nLCS: ", .data$LCS, "    GCS: ", 
+        .data$GCS, sep = ""))
+    id_label <- df_net %>% select(c(title, keywords, keywordsplus, id, color_v, x, y)) %>% #<<
+    distinct() #<<
+    g <- ggplot(df_net, aes(x = .data$x, y = .data$y, xend = .data$xend, 
+        yend = .data$yend)) + geom_network_edges(color = "grey", 
+        size = 0.4, alpha = 0.4) + geom_network_nodes(aes(color = .data$color_v), 
+        size = size, alpha = 0.5) + 
+      ggrepel::geom_text_repel(inherit.aes = FALSE, data = id_label, aes(x = x, y = y, label = id, color = color_v), size = labelsize, alpha = 0.7, min.segment.length = 0, seed = 42, max.overlaps = Inf) + #<<
+        scale_x_continuous(labels = Ylabel, breaks = Breaks) +
+        guides(size = "none", color = "none") + theme_minimal() + 
+        theme(legend.position = "none", panel.background = element_rect(fill = "white", 
+            color = "white"), axis.line.y = element_blank(), 
+            axis.text.y = element_blank(), axis.ticks.y = element_blank(), 
+            axis.title.y = element_blank(), axis.title.x = element_blank(), 
+            panel.grid.minor.y = element_blank(), panel.grid.major.y = element_blank(), 
+            panel.grid.major.x = element_line(adjustcolor(col = "grey", 
+                alpha.f = 0.2), linetype = 2, size = 0.5), panel.grid.minor.x = element_blank(), 
+            axis.text.x = element_text(face = "bold", angle = 90, 
+                size = labelsize + 4)) + labs(title = "Historical Direct Citation Network") +
+      expand_limits(x=c(-0.1,1.1)) #<<
+    data("logo", envir = environment())
+    logo <- grid::rasterGrob(logo, interpolate = TRUE)
+    a <- ggplot_build(g)$data
+    ymin <- unlist(lapply(a, function(l) {
+        if ("y" %in% names(l)) {
+            min(l["y"])
+        }
+    })) %>% min(na.rm = TRUE)
+    ymax <- unlist(lapply(a, function(l) {
+        if ("y" %in% names(l)) {
+            max(l["y"])
+        }
+    })) %>% max(na.rm = TRUE)
+    xmin <- unlist(lapply(a, function(l) {
+        if ("x" %in% names(l)) {
+            min(l["x"])
+        }
+    })) %>% min(na.rm = TRUE)
+    xmax <- unlist(lapply(a, function(l) {
+        if ("x" %in% names(l)) {
+            max(l["x"])
+        }
+    })) %>% max(na.rm = TRUE)
+    x <- c(xmax - 0.02 - diff(c(xmin, xmax)) * 0.125, xmax - 
+        0.02)
+    y <- c(ymin, ymin + diff(c(ymin, ymax)) * 0.125) + 0.02
+    g <- g + annotation_custom(logo, xmin = x[1], xmax = x[2], 
+        ymin = y[1], ymax = y[2])
+    label <- data.frame(Label = names(igraph::V(bsk.network)))
+    Data <- histResults$histData
+    Data <- left_join(label, Data, by = c(Label = "Paper"))
+    if (isTRUE(verbose)) {
+        plot(g)
+        cat("\n Legend\n\n")
+        print(Data[, -2])
+    }
+    results <- list(net = bsk.network, g = g, graph.data = Data, 
+        layout = layout_m, axis = data.frame(label = Ylabel, 
+            values = Breaks), params = params)
+    return(results)
+}
+```
+
+#### Necessary functions
+
+```{r}
+#| eval: false
+#| echo: true
+colorlist <- function(){
+  c("#E41A1C","#377EB8","#4DAF4A","#984EA3","#FF7F00","#A65628","#F781BF","#999999","#66C2A5","#FC8D62","#8DA0CB","#E78AC3","#A6D854","#FFD92F"
+             ,"#B3B3B3","#A6CEE3","#1F78B4","#B2DF8A","#33A02C","#FB9A99","#E31A1C","#FDBF6F","#FF7F00","#CAB2D6","#6A3D9A","#B15928","#8DD3C7","#BEBADA"
+             ,"#FB8072","#80B1D3","#FDB462","#B3DE69","#D9D9D9","#BC80BD","#CCEBC5")
+}
+
+delete.isolates <- function(graph, mode = 'all') {
+  isolates <- which(igraph::degree(graph, mode = mode) == 0) - 1
+  igraph::delete.vertices(graph, names(isolates))
+}
+
+geom_network_edges <- function(
+    mapping = NULL,
+    data = NULL,
+    position = "identity",
+    arrow = NULL,
+    curvature = 0,
+    angle = 90,
+    ncp = 5,
+    na.rm = FALSE,
+    show.legend = NA,
+    inherit.aes = TRUE,
+    ...
+) {
+  if (!curvature) {
+    geom <- ggplot2::GeomSegment
+    params <- list(arrow = arrow, na.rm = na.rm, ...)
+  } else {
+    geom <- ggplot2::GeomCurve
+    params <- list(
+      arrow = arrow,
+      curvature = curvature,
+      angle = angle,
+      ncp = ncp,
+      na.rm = na.rm,
+      ...
+    )
+  }
+
+  ggplot2::layer(
+    data = data,
+    mapping = mapping,
+    stat = StatEdges,
+    geom = geom,
+    position = position,
+    show.legend = show.legend,
+    inherit.aes = inherit.aes,
+    params = params
+  )
+}
+
+StatEdges <- ggplot2::ggproto("StatEdges", ggplot2::Stat,
+                              compute_layer = function(data, scales, params) {
+                                unique(subset(data, !(x == xend & y == yend)))
+                              }
+)
+
+geom_network_nodes <- function(
+    mapping = NULL,
+    data = NULL,
+    position = "identity",
+    na.rm = FALSE,
+    show.legend = NA,
+    inherit.aes = TRUE,
+    ...
+) {
+  ggplot2::layer(
+    data = data,
+    mapping = mapping,
+    stat = StatNodes,
+    geom = ggplot2::GeomPoint,
+    position = position,
+    show.legend = show.legend,
+    inherit.aes = inherit.aes,
+    params = list(
+      na.rm = na.rm,
+      ...
+    )
+  )
+}
+
+StatNodes <- ggplot2::ggproto("StatNodes", ggplot2::Stat,
+                              compute_layer = function(data, scales, params) {
+                                if (all(c("xend", "yend") %in% names(data))) {
+                                  unique(subset(data, select = c(-xend, -yend)))
+                                } else {
+                                  unique(data)
+                                }
+                              }
+)
+```
+:::
+
+## Another nice, dynamic table for easier use
+
+### A Scripted Approach
+
+::: panel-tabset
+#### Table
+
+```{r}
+#| echo: false
+#| eval: true
+netpap <- net$graph.data %>%
+  select(-KeywordsPlus, -Author_Keywords) %>%
+  mutate(Links = sprintf('<a href = "https://www.doi.org/%s">%s</a>', 
+                          DOI,
+                          "To Paper"
+                         ),
+         Links = lapply(Links, gt::html)) %>%
+  relocate(Links, LCS, GCS, Year, .after = Title)
+```
+
+```{r}
+#| eval: true
+#| echo: false
+netpap %>% DT::datatable(extensions = 'Scroller', 
+                options = list(
+  deferRender = TRUE,
+  scrollY = 300,
+  scrollX = T,
+  scroller = TRUE,
+  columnDefs = list(
+                    list(targets = "_all",
+                         render = JS(
+                           "function(data, type, row, meta) {",
+                           "return type === 'display' && data.length > 10 ?",
+                           "'<span title=\"' + data + '\">' + data.substr(0, 10) + '...</span>' : data;",
+                           "}"))),    
+  initComplete = JS(
+    "function(settings, json) {",
+    "$(this.api().table().container()).css({'background-color': '#fff', 'color': '#000'});",
+    "}")),
+  rownames = FALSE)
+```
+
+#### Code
+
+```{r}
+#| echo: true
+#| eval: false
+netpap <- net$graph.data %>%
+  as.data.frame() %>%
+  mutate(Links = sprintf('<a href = "https://www.doi.org/%s">%s</a>', 
+                          DOI,
+                          "To Paper"
+                         ),
+         Links = lapply(Links, gt::html)) %>%
+  relocate(Links, LCS, GCS, Year, .after = Title) 
+
+netpap %>%
+  DT::datatable()
+```
+:::
+
+## [Reference publication year spectroscopy is one function, but can make mistakes]{.smaller}
+
+### A Scripted Approach
+
+::: panel-tabset
+#### Code
+
+```{r}
+#| echo: true
+#| eval: false
+peaks <- rpys(fulldb)
+```
+
+#### Plot
+
+```{r}
+#| echo: false
+#| eval: true
+#| class: vscroll
+# graph the rpys plot
+
+peaks <- rpys(fulldb, graph = T)
+```
+:::
+
+## [The timespan may be skewed by erroneous outliers!]{.small} {.scrollable}
+
+### A Scripted Approach
+
+::: panel-tabset
+#### Examine
+
+```{r}
+#| output-location: column
+summary(peaks)
+```
+
+<hr/>
+
+```{r}
+glimpse(peaks$CR)
+```
+
+```{r}
+glimpse(peaks$df)
+```
+
+#### Citation
+
+```{r}
+#| output-location: column
+peaks[["CR"]][["Reference"]][1]
+```
+
+<hr/>
+
+```{r}
+#| output-location: column
+peaks[["df"]][["Reference"]][1]
+```
+
+#### Publication
+
+Google scholar:
+
+::: nonincremental
+-   Found [KHAN AA 1826 BIOCHIM BIOPHYS ACTA](https://scholar.google.com/scholar?hl=en&as_sdt=0%2C5&q=KHAN+AA+1826+BIOCHIM+BIOPHYS+ACTA+&btnG=)
+
+-   Could not find [KHAN AA 1826 BIOCHIM BIOPHYS ACTA V2012 P331](https://scholar.google.com/scholar?hl=en&as_sdt=0%2C5&q=KHAN+AA+1826+BIOCHIM+BIOPHYS+ACTA+V2012+P331&btnG=)
+:::
+:::
+
+## [Trim the outliers with quartiles and `timespan`]{.small} {.scrollable}
+
+### A Scripted Approach
+
+::: panel-tabset
+#### Munging
+
+```{r}
+# Create a list of all the years and repeat years by citation count
+outlist <- peaks$rpysTable %>%
+  rowwise() %>%
+  summarise(sample_list = list(rep(Year, Citations))) %>%
+  pull(sample_list) %>%
+  unlist()
+```
+
+```{r}
+#| echo: false
+#| eval: true
+outlist
+```
+
+#### Viz
+
+```{r}
+par(mfrow = c(1, 3))
+hist(outlist, main = "Histogram")
+boxplot(outlist, main = "Boxplot")
+qqnorm(outlist, main = "Q-Q plot")
+```
+
+#### Tukey outlier
+
+Use tukey's fence!
+
+::: small
+> a boundary that is set either at "outlier", $k=1.5$, or "far out", $k=3.0$, for the $1st$ and $3rd$ quartile.
+:::
+
+::: nonincremental
+1.  $Q1 - k(Q3 - Q_1)$
+
+2.  $Q_3 + k(Q_3 - Q_1)$
+:::
+
+#### Removal!!
+
+```{r}
+summary(outlist)
+IQR(outlist)
+tfmin <- 2009 - (3 * 8)
+outlist[which(outlist < tfmin)]
+```
+
+#### Code
+
+```{r}
+#| echo: true
+#| eval: false
+quick_peaks <- rpys(fulldb, timespan = c(1985,2022))
+```
+
+#### Plot
+
+```{r}
+#| echo: false
+#| eval: true
+quick_peaks <- rpys(fulldb, timespan = c(1985,2022))
+```
+:::
+
+## [Tukey's fence can visualize and extract the outling important articles]{.smaller}
+
+### A Scripted Approach
+
+```{r}
+#| eval: true
+#| echo: false
+refCleaning <- function(l,db){
+  if (db=="ISI"){
+    #ref<-unlist(lapply(Fi, function(l){
+      l<-gsub("\\).*",")",l)
+      l<-gsub(","," ",l)
+      l<-gsub(";"," ",l)
+      l <- gsub("\\."," ",l)
+      l <- trimws(trimES(l))
+      l<-l[nchar(l)>0]
+      #return(l)
+   # }))
+  }else{
+    #ref<-unlist(lapply(Fi, function(l){
+      l<-gsub(","," ",l)
+      l<-gsub(";"," ",l) 
+      l <- gsub("\\."," ",l)
+      l <- trimws(trimES(l))
+      l<-l[nchar(l)>0]
+      return(l)
+    #}))
+  }
+  return(l)
+}
+
+reduceRefs<- function(A){
+  ind=unlist(regexec("*V[0-9]", A))
+  A[ind>-1]=substr(A[ind>-1],1,(ind[ind>-1]-1))
+  ind=unlist(regexec("*DOI ", A))
+  A[ind>-1]=substr(A[ind>-1],1,(ind[ind>-1]-1))
+  return(A)
+}
+
+yearExtract <- function(string,db){
+  if (db=="ISI"){
+  ind=regexpr(" [[:digit:]]{4} ",string)
+  ind[is.na(ind)]=-1
+  string[ind==-1]=" 0000 "
+  ind[ind==-1]=1
+  attr(ind[ind==-1],"match.length")=6
+  y=trim(unlist(regmatches(string,ind)))
+  }else{
+    ind=regexpr("\\([[:digit:]]{4}\\)",string)
+    ind[is.na(ind)]=-1
+    string[ind==-1]="(0000)"
+    ind[ind==-1]=1
+    attr(ind[ind==-1],"match.length")=6
+    y=unlist(regmatches(string,ind))
+    y=substr(y,2,5)
+  }
+  return(y)
+}
+
+rpys_outliers <- function (M, sep = ";", timespan = NULL, graph = T, animate = F, dev_only = F) 
+{
+    options(dplyr.summarise.inform = FALSE)
+    M$CR <- gsub("DOI;", "DOI ", as.character(M$CR))
+    Fi <- strsplit(M[, "CR"], sep)
+    Fi <- lapply(Fi, trim.leading)
+    Fi <- lapply(Fi, function(l) l <- l[nchar(l) > 10])
+    citingYears <- rep(M$PY, lengths(Fi))
+    Fi <- (unlist(Fi))
+    df <- data.frame(Reference = Fi, citingYears = citingYears) %>% 
+        mutate(Reference = refCleaning(.data$Reference, db = M$DB[1]))
+    df$citedYears <- as.numeric(yearExtract(df$Reference, db = M$DB[1]))
+    df <- df %>% dplyr::filter(!is.na(.data$Reference) & .data$citedYears > 
+        1700 & .data$citedYears <= as.numeric(substr(Sys.Date(), 
+        1, 4))) %>% group_by(.data$citedYears, .data$citingYears, 
+        .data$Reference) %>% summarize(citations = n()) %>% group_by(.data$citedYears, 
+        .data$citingYears) %>% mutate(benchmark = mean(.data$citations, 
+        na.rm = T), status = sign(.data$citations - .data$benchmark)) %>% 
+        ungroup() %>% arrange(.data$citedYears, .data$Reference, 
+        .data$citingYears)
+    CR <- df %>% group_by(.data$citedYears, .data$Reference) %>% 
+        select(-.data$citingYears, -.data$status) %>% summarize(Freq = sum(.data$citations))
+    RPYS <- CR %>% select(-.data$Reference) %>% group_by(.data$citedYears) %>% 
+        summarize(n = sum(.data$Freq, na.rm = TRUE))
+    yearSeq <- RPYS$citedYears
+    missingYears <- setdiff(seq(min(yearSeq), max(yearSeq)), 
+        yearSeq)
+    RPYS[(nrow(RPYS) + 1):(nrow(RPYS) + length(missingYears)), 
+        ] <- rbind(cbind(missingYears, rep(0, length(missingYears))))
+    RPYS <- RPYS %>% arrange(.data$citedYears)
+    YY <- c(rep(0, 4), RPYS$n)
+    Median <- numeric(nrow(RPYS))
+    for (i in 5:length(YY)) {
+        Median[i - 4] = median(YY[(i - 4):i])
+    }
+    RPYS$diffMedian <- RPYS$n - Median
+    if (length(timespan) == 2) {
+        RPYS <- RPYS %>% dplyr::filter(.data$citedYears >= min(timespan) & 
+            .data$citedYears <= max(timespan))
+    }
+    names(RPYS) <- c("Year", "Citations", "diffMedian5")
+    RPYS <- RPYS %>% mutate(diffMedian = ifelse(.data$diffMedian5 > 
+        0, .data$diffMedian5, 0))
+    
+    qtile <- quantile(RPYS$diffMedian5, prob=c(.25,.5,.75), type=1, names = FALSE) #<<
+    qtile.range <- qtile[3] - qtile[1] #<<
+
+    lower.fence <- qtile[3] + 1.5 * ( qtile.range ) #<<
+    upper.fence <- qtile[3] + 3.0 * ( qtile.range ) #<<
+    
+    data("logo", envir = environment())
+    logo <- grid::rasterGrob(logo, interpolate = TRUE)
+    x <- c(min(RPYS$Year), min(RPYS$Year) + diff(range(RPYS$Year)) * 
+        0.125) + 1
+    y <- c(min(c(RPYS$Citations, RPYS$diffMedian)), min(c(RPYS$Citations, 
+        RPYS$diffMedian)) + diff(range(c(RPYS$Citations, RPYS$diffMedian))) * 
+        0.125) * 1.05
+    g_dev = ggplot(RPYS, aes(x = .data$Year, y = .data$Citations, 
+        text = paste("Year: ", .data$Year, "\nN. of References: ", 
+            .data$Citations))) + 
+        geom_line(aes(x = .data$Year, y = .data$diffMedian, color = "firebrick", 
+            group = "NA")) + 
+        geom_hline(yintercept = c(lower.fence, upper.fence), linetype='dashed', color=c('blue', 'red')) +
+        labs(x = "Year", y = "Cited References", 
+        title = "Reference Publication Year Spectroscopy", caption = "Number of Cited References (black line) - Deviation from the 5-Year Median (red line)") + 
+        scale_x_continuous(breaks = (RPYS$Year[seq(1, length(RPYS$Year), 
+            by = round(length(RPYS$Year)/30))])) + theme(text = element_text(color = "#444444"), 
+        legend.position = "none", plot.caption = element_text(size = 9, 
+            hjust = 0.5, color = "black", face = "bold"), panel.background = element_rect(fill = "#FFFFFF"), 
+        panel.grid.major = element_line(color = "#EFEFEF"), plot.title = element_text(size = 24), 
+        axis.title = element_text(size = 14, color = "#555555"), 
+        axis.title.y = element_text(vjust = 1, angle = 90), axis.title.x = element_text(hjust = 0.95, 
+            angle = 0), axis.text.x = element_text(size = 8, 
+            angle = 90), axis.line.x = element_line(color = "black", 
+            size = 0.5), axis.line.y = element_line(color = "black", 
+            size = 0.5)) + annotation_custom(logo, xmin = x[1], 
+        xmax = x[2], ymin = y[1], ymax = y[2]) 
+    if (isFALSE(dev_only)) {
+          g <- g_dev + 
+        geom_line(aes(x = RPYS$Year, y = RPYS$Citations, group = "NA"))
+    }
+    if (isTRUE(graph)) {
+        plot(g_dev)
+        if (isFALSE(dev_only)) {
+          plot(g)
+        }
+    }
+    if (isTRUE(animate)) {
+        anim_plot_dev <- g_dev + 
+          gganimate::transition_reveal(Year) +
+          gganimate::ease_aes('linear')
+        if (isFALSE(dev_only)) {
+            anim_plot <- g + 
+              gganimate::transition_reveal(Year) +
+              gganimate::ease_aes('linear')        
+            }
+    }
+    CR$Reference <- reduceRefs(CR$Reference)
+    CR <- CR %>% rename(Year = .data$citedYears) %>% ungroup()
+    result = list(gDev = g_dev, rpysTable = RPYS, CR = CR %>% 
+        mutate(Year = as.character(.data$Year)), df = df, anim_plot = anim_plot, anim_plot_dev = anim_plot_dev)
+    if (isFALSE(dev_only)) {
+        result[["spectroscopy"]] <- g
+    }
+    return(result)
+}
+
+ot <- rpys_outliers(fulldb, timespan = c(1985,2022), graph = F, animate = T, dev_only = F) 
+
+```
+
+::: panel-tabset
+#### Altered `rpys`
+
+```{r}
+#| code-line-numbers: 1,44-50,58,78-97,100-104 
+#| eval: false
+#| echo: true
+rpys_outliers <- function (M, sep = ";", timespan = NULL, graph = T, animate = F, dev_only = F) 
+{
+    options(dplyr.summarise.inform = FALSE)
+    M$CR <- gsub("DOI;", "DOI ", as.character(M$CR))
+    Fi <- strsplit(M[, "CR"], sep)
+    Fi <- lapply(Fi, trim.leading)
+    Fi <- lapply(Fi, function(l) l <- l[nchar(l) > 10])
+    citingYears <- rep(M$PY, lengths(Fi))
+    Fi <- (unlist(Fi))
+    df <- data.frame(Reference = Fi, citingYears = citingYears) %>% 
+        mutate(Reference = refCleaning(.data$Reference, db = M$DB[1]))
+    df$citedYears <- as.numeric(yearExtract(df$Reference, db = M$DB[1]))
+    df <- df %>% dplyr::filter(!is.na(.data$Reference) & .data$citedYears > 
+        1700 & .data$citedYears <= as.numeric(substr(Sys.Date(), 
+        1, 4))) %>% group_by(.data$citedYears, .data$citingYears, 
+        .data$Reference) %>% summarize(citations = n()) %>% group_by(.data$citedYears, 
+        .data$citingYears) %>% mutate(benchmark = mean(.data$citations, 
+        na.rm = T), status = sign(.data$citations - .data$benchmark)) %>% 
+        ungroup() %>% arrange(.data$citedYears, .data$Reference, 
+        .data$citingYears)
+    CR <- df %>% group_by(.data$citedYears, .data$Reference) %>% 
+        select(-.data$citingYears, -.data$status) %>% summarize(Freq = sum(.data$citations))
+    RPYS <- CR %>% select(-.data$Reference) %>% group_by(.data$citedYears) %>% 
+        summarize(n = sum(.data$Freq, na.rm = TRUE))
+    yearSeq <- RPYS$citedYears
+    missingYears <- setdiff(seq(min(yearSeq), max(yearSeq)), 
+        yearSeq)
+    RPYS[(nrow(RPYS) + 1):(nrow(RPYS) + length(missingYears)), 
+        ] <- rbind(cbind(missingYears, rep(0, length(missingYears))))
+    RPYS <- RPYS %>% arrange(.data$citedYears)
+    YY <- c(rep(0, 4), RPYS$n)
+    Median <- numeric(nrow(RPYS))
+    for (i in 5:length(YY)) {
+        Median[i - 4] = median(YY[(i - 4):i])
+    }
+    RPYS$diffMedian <- RPYS$n - Median
+    if (length(timespan) == 2) {
+        RPYS <- RPYS %>% dplyr::filter(.data$citedYears >= min(timespan) & 
+            .data$citedYears <= max(timespan))
+    }
+    names(RPYS) <- c("Year", "Citations", "diffMedian5")
+    RPYS <- RPYS %>% mutate(diffMedian = ifelse(.data$diffMedian5 > 
+        0, .data$diffMedian5, 0))
+    
+    qtile <- quantile(RPYS$diffMedian5, prob=c(.25,.5,.75), type=1, names = FALSE) #<<
+    qtile.range <- qtile[3] - qtile[1] #<<
+
+    lower.fence <- qtile[3] + 1.5 * ( qtile.range ) #<<
+    upper.fence <- qtile[3] + 3.0 * ( qtile.range ) #<<
+    
+    data("logo", envir = environment())
+    logo <- grid::rasterGrob(logo, interpolate = TRUE)
+    x <- c(min(RPYS$Year), min(RPYS$Year) + diff(range(RPYS$Year)) * 
+        0.125) + 1
+    y <- c(min(c(RPYS$Citations, RPYS$diffMedian)), min(c(RPYS$Citations, 
+        RPYS$diffMedian)) + diff(range(c(RPYS$Citations, RPYS$diffMedian))) * 
+        0.125) * 1.05
+    g_dev = ggplot(RPYS, aes(x = .data$Year, y = .data$Citations, 
+        text = paste("Year: ", .data$Year, "\nN. of References: ", 
+            .data$Citations))) + 
+        geom_line(aes(x = .data$Year, y = .data$diffMedian, color = "firebrick", 
+            group = "NA")) + 
+        geom_hline(yintercept = c(lower.fence, upper.fence), linetype='dashed', color=c('blue', 'red')) +
+        labs(x = "Year", y = "Cited References", 
+        title = "Reference Publication Year Spectroscopy", caption = "Number of Cited References (black line) - Deviation from the 5-Year Median (red line)") + 
+        scale_x_continuous(breaks = (RPYS$Year[seq(1, length(RPYS$Year), 
+            by = round(length(RPYS$Year)/30))])) + theme(text = element_text(color = "#444444"), 
+        legend.position = "none", plot.caption = element_text(size = 9, 
+            hjust = 0.5, color = "black", face = "bold"), panel.background = element_rect(fill = "#FFFFFF"), 
+        panel.grid.major = element_line(color = "#EFEFEF"), plot.title = element_text(size = 24), 
+        axis.title = element_text(size = 14, color = "#555555"), 
+        axis.title.y = element_text(vjust = 1, angle = 90), axis.title.x = element_text(hjust = 0.95, 
+            angle = 0), axis.text.x = element_text(size = 8, 
+            angle = 90), axis.line.x = element_line(color = "black", 
+            size = 0.5), axis.line.y = element_line(color = "black", 
+            size = 0.5)) + annotation_custom(logo, xmin = x[1], 
+        xmax = x[2], ymin = y[1], ymax = y[2]) 
+    if (isFALSE(dev_only)) {
+          g <- g_dev + 
+        geom_line(aes(x = RPYS$Year, y = RPYS$Citations, group = "NA"))
+    }
+    if (isTRUE(graph)) {
+        plot(g_dev)
+        if (isFALSE(dev_only)) {
+          plot(g)
+        }
+    }
+    if (isTRUE(animate)) {
+        anim_plot_dev <- g_dev + 
+          gganimate::transition_reveal(Year) +
+          gganimate::ease_aes('linear')
+        if (isFALSE(dev_only)) {
+            anim_plot <- g + 
+              gganimate::transition_reveal(Year) +
+              gganimate::ease_aes('linear')        
+            }
+    }
+    CR$Reference <- reduceRefs(CR$Reference)
+    CR <- CR %>% rename(Year = .data$citedYears) %>% ungroup()
+    result = list(gDev = g_dev, rpysTable = RPYS, CR = CR %>% 
+        mutate(Year = as.character(.data$Year)), df = df, anim_plot = anim_plot, anim_plot_dev = anim_plot_dev)
+    if (isFALSE(dev_only)) {
+        result[["spectroscopy"]] <- g
+    }
+    return(result)
+}
+```
+
+#### Imp. Plot
+
+```{r}
+#| class: vscroll
+plot(ot$spectroscopy)
+```
+
+#### Deviation Plot
+
+```{r}
+#| class: vscroll
+plot(ot$gDev)
+```
+
+#### Animate
+
+```{r}
+#| echo: false
+#| eval: true
+anim_plot <- ot$spectroscopy + 
+    gganimate::transition_reveal(Year) +
+    gganimate::ease_aes('linear')
+gganimate::animate(anim_plot, fps = 10, nframes = 100, end_pause = 10, res = 150, 
+                   width = 1800, units = "px")
+```
+
+#### Nec. Func.
+
+```{r}
+#| eval: false
+#| echo: true
+refCleaning <- function(l,db){
+  if (db=="ISI"){
+    #ref<-unlist(lapply(Fi, function(l){
+      l<-gsub("\\).*",")",l)
+      l<-gsub(","," ",l)
+      l<-gsub(";"," ",l)
+      l <- gsub("\\."," ",l)
+      l <- trimws(trimES(l))
+      l<-l[nchar(l)>0]
+      #return(l)
+   # }))
+  }else{
+    #ref<-unlist(lapply(Fi, function(l){
+      l<-gsub(","," ",l)
+      l<-gsub(";"," ",l) 
+      l <- gsub("\\."," ",l)
+      l <- trimws(trimES(l))
+      l<-l[nchar(l)>0]
+      return(l)
+    #}))
+  }
+  return(l)
+}
+
+reduceRefs<- function(A){
+  ind=unlist(regexec("*V[0-9]", A))
+  A[ind>-1]=substr(A[ind>-1],1,(ind[ind>-1]-1))
+  ind=unlist(regexec("*DOI ", A))
+  A[ind>-1]=substr(A[ind>-1],1,(ind[ind>-1]-1))
+  return(A)
+}
+
+yearExtract <- function(string,db){
+  if (db=="ISI"){
+  ind=regexpr(" [[:digit:]]{4} ",string)
+  ind[is.na(ind)]=-1
+  string[ind==-1]=" 0000 "
+  ind[ind==-1]=1
+  attr(ind[ind==-1],"match.length")=6
+  y=trim(unlist(regmatches(string,ind)))
+  }else{
+    ind=regexpr("\\([[:digit:]]{4}\\)",string)
+    ind[is.na(ind)]=-1
+    string[ind==-1]="(0000)"
+    ind[ind==-1]=1
+    attr(ind[ind==-1],"match.length")=6
+    y=unlist(regmatches(string,ind))
+    y=substr(y,2,5)
+  }
+  return(y)
+}
+```
+:::
+
+## Creating a useful table is always important
+
+### A Scripted Approach
+
+::: panel-tabset
+#### Table
+
+```{r}
+#| eval: true
+#| echo: false
+qtile <- quantile(quick_peaks[["rpysTable"]]$diffMedian5, prob=c(.25,.5,.75), type=1, names = FALSE)
+
+qtile.range <- qtile[3] - qtile[1] # or IQR(quick_peaks[["rpysTable"]]$diffMedian5)
+
+lower.fence <- qtile[3] + 1.5 * qtile.range
+upper.fence <- qtile[3] + 3.0 * qtile.range
+
+lower.rpys <- subset(quick_peaks[["rpysTable"]], diffMedian5 > lower.fence) %>%
+  select(Year)
+
+out_years <- quick_peaks[["df"]] %>%
+  inner_join(lower.rpys, by = join_by(citedYears == Year))
+
+peak_art <- out_years %>% 
+  group_by(citedYears, Reference) %>%
+  summarise(n = n()) %>%
+  filter(n >= 4) %>%
+  arrange(citedYears, desc(n)) %>%
+  ungroup() %>%
+  mutate(DOI = str_extract(.data$Reference, pattern = "DOI.*")) %>%
+  mutate(DOI = str_sub(.data$DOI, start = 5)) %>%
+  mutate(DOI = str_replace_all(.data$DOI, pattern = ' ', replacement = '.')) %>%
+  mutate(Links = sprintf('<a href = "https://www.doi.org/%s">%s</a>', 
+                          DOI,
+                          "To Paper"
+                         ),
+         Links = lapply(Links, gt::html)) %>%
+  na.omit()
+
+peak_art %>%
+  mutate(Reference = sprintf('<a href = "https://www.doi.org/%s">%s</a>', 
+                          DOI, 
+                          Reference),
+         Reference = lapply(Reference, gt::html)) %>%
+  DT::datatable(extensions = 'Scroller', 
+                options = list(
+  deferRender = TRUE,
+  scrollY = 300,
+  scrollX = T,
+  scroller = TRUE,
+  columnDefs = list(
+                    list(targets = "_all",
+                         render = JS(
+                           "function(data, type, row, meta) {",
+                           "return type === 'display' && data.length > 10 ?",
+                           "'<span title=\"' + data + '\">' + data.substr(0, 10) + '...</span>' : data;",
+                           "}"))),    
+  initComplete = JS(
+    "function(settings, json) {",
+    "$(this.api().table().container()).css({'background-color': '#fff', 'color': '#000'});",
+    "}")),
+  rownames = FALSE)
+```
+
+#### Q.Tile
+
+```{r}
+#| eval: false
+#| echo: true
+qtile <- quantile(quick_peaks[["rpysTable"]]$diffMedian5, prob=c(.25,.5,.75), type=1, names = FALSE)
+
+qtile.range <- qtile[3] - qtile[1] # or IQR(quick_peaks[["rpysTable"]]$diffMedian5)
+
+lower.fence <- qtile[3] + 1.5 * qtile.range
+upper.fence <- qtile[3] + 3.0 * qtile.range
+```
+
+#### Preprocess
+
+```{r}
+#| eval: false
+#| echo: true
+lower.rpys <- subset(quick_peaks[["rpysTable"]], diffMedian5 > lower.fence) %>%
+  select(Year)
+
+out_years <- quick_peaks[["df"]] %>%
+  inner_join(lower.rpys, by = join_by(citedYears == Year))
+
+peak_art <- out_years %>% 
+  group_by(citedYears, Reference) %>%
+  summarise(n = n()) %>%
+  filter(n >= 4) %>%
+  arrange(citedYears, desc(n)) %>%
+  ungroup() %>%
+  mutate(DOI = str_extract(.data$Reference, pattern = "DOI.*")) %>%
+  mutate(DOI = str_sub(.data$DOI, start = 5)) %>%
+  mutate(DOI = str_replace_all(.data$DOI, pattern = ' ', replacement = '.')) %>%
+  mutate(Links = sprintf('<a href = "https://www.doi.org/%s">%s</a>', 
+                          DOI,
+                          "To Paper"
+                         ),
+         Links = lapply(Links, gt::html)) %>%
+  na.omit()
+```
+
+#### Code
+
+```{r}
+#| eval: false
+#| echo: true
+peak_art %>%
+  mutate(Reference = sprintf('<a href = "https://www.doi.org/%s">%s</a>', 
+                          DOI, 
+                          Reference),
+         Reference = lapply(Reference, gt::html)) %>%
+  DT::datatable()
+```
+:::
+
+## [Building a full corpus to review in seconds with a function]{.small}
+
+### A Scripted Approach
+
+::: panel-tabset
+#### Data
+
+```{r}
+#| eval: true
+#| echo: true
+# 100
+small_mcp <- mcp %>% 
+  slice_head(n=100) %>% 
+  mutate(Origin = "results[['MostCited']]")
+
+# 100
+small_histpap <- histResults[["histData"]] %>%
+  select(-KeywordsPlus) %>%
+  arrange(desc(GCS)) %>%
+  slice_head(n=100) %>% 
+  mutate(Origin = 'histResults[["histData"]]')
+
+# 126
+labeled_mcp_year <- mcp_year %>% 
+  mutate(Origin = "citations()")
+
+# 39
+labeled_netpap <- netpap %>% 
+  mutate(Origin = "histPlot()")
+
+# 85
+labeled_peak_art <- peak_art %>% 
+  mutate(Origin = "rpys_outliers()")
+```
+
+#### Fun.
+
+```{r}
+#| eval: true
+#| echo: true
+biblioCombo <- function(...) {
+  if (...length() == 1L)
+    ids_lst <- lst(...)
+  else
+    ids_lst <- lst(...)
+  
+  df_names <- names(ids_lst)
+  
+  new <- ids_lst %>%
+    reduce(full_join, by = "DOI") %>%
+    distinct(DOI, .keep_all = TRUE) %>%
+    unite("Origin", starts_with("Origin"), na.rm = TRUE, sep = ", ") 
+  
+  abs <- fulldb %>%
+    mutate(DOI = DI) %>%
+    right_join(new, by = "DOI") %>%
+    select(DI, AB, TI, DOI, Origin) 
+  
+  #Function to create an index column indicating which dataframes contain a particular DOI
+  create_index <- function(df_list, doi_column) {
+    index_column <- sapply(doi_column, function(doi) {
+      doi_in_dfs <- sapply(df_list, function(df) {
+        any(df$DOI == doi, na.rm = TRUE)
+      })
+      paste(names(df_list)[doi_in_dfs], collapse = ", ")
+    })
+    return(index_column)
+  }
+  
+  # Create index column
+  abs$Index <- create_index(ids_lst, abs$DOI)
+    
+  final <- c(ids_lst, list(new = new, abs = abs))
+  
+  return(final)
+}
+```
+
+#### Combo
+
+```{r}
+#| eval: true
+#| echo: true
+combo <- biblioCombo(small_mcp, labeled_mcp_year, labeled_netpap, small_histpap, labeled_peak_art)
+```
+
+#### Distibution (func.)
+
+```{r}
+#| eval: true
+#| echo: true
+#| output-location: column
+combo$abs %>%
+  group_by(Origin) %>%
+  summarise(n = n()) %>%
+  gt()
+```
+
+#### Distribution (df)
+
+```{r}
+#| eval: true
+#| echo: true
+#| output-location: column
+combo$abs %>%
+  group_by(Index) %>%
+  summarise(n = n()) %>%
+  gt()
+```
+:::
+
+## Abstracts can be rapidly gathered at the CLI
+
+### A Scripted Approach
+
+::: panel-tabset
+#### No ABS?
+
+```{r}
+# Collect DOIs from missing abstracts!
+dois <- combo$abs %>%
+  subset(is.na(AB))
+
+nrow(combo$abs)
+nrow(dois)
+```
+
+#### Gather function!
+
+```{r}
+get_abstracts <- function(input_df) {
+  n <- nrow(input_df)
+  pb <- progress::progress_bar$new(
+    format = "  Downloading abstracts in :eta : [:bar] :current/:total (:percent) ",
+    clear = TRUE, total = n, width = 80)
+  
+  results_df <- data.frame(DOI = character(), Abstract = character(), Title = character(), stringsAsFactors = FALSE)
+  
+  for (i in 1:n) {
+    doi <- input_df$DOI[i]
+    pb$tick()
+    #abstracts <- lapply(head(dois$DOI), function(doi) {
+    pubmed_abstract <- tryCatch({
+      search_query <- paste(doi, "[DOI]", sep = " ")
+      pubmed_search <- entrez_search(db = "pubmed", term = search_query)
+      
+      if (length(pubmed_search$ids) == 0) {
+          row <- data.frame(DOI = doi, Abstract = NA, Title = NA, stringsAsFactors = FALSE)  # No IDs found for this DOI
+      } else {
+      
+      pubmed_id <- pubmed_search$ids[1]
+      pubmed_summary <- entrez_summary(db = "pubmed", id = pubmed_id)
+      pubmed_title <- pubmed_summary$title
+      
+      if (is.null(pubmed_summary$abstract) || is.na(pubmed_summary$abstract)) {
+        pubmed_record <- entrez_fetch(db = "pubmed", id = pubmed_id, rettype = "abstract")
+        pubmed_abstract <- paste(strsplit(pubmed_record, "\n")[[1]], collapse = "\n")
+      } else {
+        pubmed_abstract <- pubmed_summary$abstract
+      }
+      
+      row <- data.frame(DOI = doi, Abstract = pubmed_abstract, Title = pubmed_title, stringsAsFactors = FALSE) 
+      
+      }
+    
+      results_df <- rbind(results_df, row)
+      
+    }, error = function(err) {
+       row <- data.frame(DOI = doi, Abstract = NA, Title = NA, stringsAsFactors = FALSE)  # No IDs found for this DOI
+       results_df <- rbind(results_df, row)
+       return(NA)
+    })
+  }
+  return(results_df)
+}
+  
+result_df <- get_abstracts(dois)
+```
+
+#### Munge
+
+```{r}
+almost_results <- result_df %>%
+  right_join(combo$abs, by = "DOI") %>%
+  mutate(TI = coalesce(TI, Title), AB = coalesce(AB, Abstract)) %>%
+  select(DOI, TI, AB) %>%
+  distinct(DOI, .keep_all = TRUE) %>%
+  mutate(AB = ifelse(is.na(AB), TI, AB), TI = ifelse(TI == AB | is.na(TI), DOI, TI))
+```
+
+#### Table
+
+```{r}
+#| echo: false
+#| eval: true
+#| class: vscroll
+almost_results %>% gt() %>% fmt_markdown(
+  columns = everything(),
+  rows = everything(),
+  md_engine = c("markdown", "commonmark")
+)
+```
+:::
+
+## Speed through a curate corpus with `metagear`
+
+### A Scripted Approach
+
+::: panel-tabset
+#### `metagear`
+
+```{r}
+library(metagear)
+
+speedrun <- almost_results %>%
+  mutate(AB = str_to_sentence(AB)) %>%
+  mutate(TI = str_to_sentence(TI))
+
+# Create a csv for the GUI
+effort_distribute(speedrun, reviewers = 'Colton', initialize = TRUE, save_split = TRUE) 
+```
+
+#### GUI
+
+::: vscroll
+```{r}
+#| echo: true
+#| eval: false
+# Open a GUI (80:20 method!)
+abstract_screener(file = 'effort_Colton14.csv', aReviewer = 'Colton', abstractColumnName = 'AB', titleColumnName = 'TI', windowWidth = 120, highlightKeywords = c("metabol", "metagenom", "bacteria", "colon", "rectal", "gut", "bile", "fatty", "choline"))
+```
+
+![](images/metagear-gui.png)
+:::
+
+#### Transfer
+
+```{r}
+#| eval: false
+#| echo: true
+clip <- read_csv("effort_Colton.csv") %>%
+  filter(grepl("yes|maybe", INCLUDE, ignore.case = TRUE))
+
+write_clip(content = clip$DOI)
+```
+:::
+
+# Summary {.smaller}
+
+You have learned:
+
+::: nonincremental
+-   Why the struggle exists
+    -   One method to alleviate some pressure
+-   Databases
+    -   Bibliographic databases
+    -   Search engine techniques
+    -   Sampling size
+    -   Exportation and Filtration
+-   Bibliometric Analysis
+    -   One tool
+    -   Two approaches
+    -   Standard data analysis in R
+    -   Interoperation with RSS and Reference management
+:::
+
+## Acknowledgments
+
+### "Alone we can do so little; together we can do so much."<br>Helen Keller
+
+::: nonincremental
+-   C. Titus Brown
+-   Pamela Reynolds
+-   Bryshal Moore
+-   Megan Van Noord
+-   DIB Lab members
+-   DataLab members
+:::
+
+```{css checkboxCircle, echo=FALSE}
+/* Hide the input checkbox */
+input[type="checkbox"] {
+  display: none;
+}
+
+/* Default circle styles */
+.circle {
+  display: flex;
+  justify-content: center; /* Align horizontal */
+  align-items: center; /* Align vertical */
+  text-align: center;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: blue;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  font-size: 0.1em;
+}
+
+/* Scale the circle larger on click */
+input[type="checkbox"]:checked + .circle {
+  display: flex;
+  justify-content: center; /* Align horizontal */
+  align-items: center; /* Align vertical */
+  width: 300px;
+  height: 300px;
+  font-size: 1.2em;
+  margin-bottom: 100px;
+}
+
+/* Create a small bump on the edge of the circle on second click */
+input[type="checkbox"]:checked:checked + .circle::after {
+  content: "";
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: red;
+  bottom: -2.5px;
+  right: 150px;
+}
+
+/* Arrow */
+input[type="checkbox"]:checked:checked + .circle::before {
+  content: "\2191" "\A" "You"; /*unicode for up arrow*/
+  white-space: pre;
+  position: absolute;
+  bottom: -100px;
+  right: 118px;
+}
+
+/* Reset circle on third click */
+input[type="checkbox"]:checked:checked:checked + .circle {
+  transform: scale(1);
+}
+
+```
