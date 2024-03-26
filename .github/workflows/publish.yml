@@ -21,7 +21,7 @@ jobs:
         run: sudo apt-get install libudunits2-dev
 
       - name: Install libproj
-        run: R -e 'install.packages("libproj")'
+        run: sudo apt-get install libproj-dev
 
       - name: Set up Quarto
         uses: quarto-dev/quarto-actions/setup@v2
