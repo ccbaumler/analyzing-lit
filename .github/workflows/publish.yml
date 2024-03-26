@@ -25,6 +25,9 @@ jobs:
         with:
           r-version: '4.3.3'
 
+      - name: Install shiny separately
+        run: R -e 'install.packages("shiny")'
+
       - name: Install R Dependencies
         uses: r-lib/actions/setup-renv@v2
         with:
