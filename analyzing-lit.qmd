@@ -12,6 +12,9 @@ format:
     auto-animate-easing: ease-in-out
     auto-animate-unmatched: true
     auto-animate-duration: 0.8
+    menu:
+      side: right
+      width: half
 from: markdown+emoji
 author: 
   - name: Colton Baumler
@@ -66,7 +69,7 @@ Backward course design for teaching - "What do you want the audience to take awa
 ::: nonincremental
 -   Why do I feel so bad all the time?
 
--   What bibliometrics is?
+-   What is bibliometrics?
 
 -   Why bibliometrics can help?
 :::
@@ -85,7 +88,7 @@ Graduate school
 ::: {.column width="75%"}
 -   Understand what is known across a domain
 -   Identify and explain something that is unknown (Preferably, coherently)
--   Ultimately unstructured with many possible options
+-   Ultimately, unstructured with many possible options
 :::
 
 ::: {.column width="25%"}
@@ -107,39 +110,39 @@ http://www.avasthilab.org/2020/05/21/navigating-the-valley-of-despair-aka-years-
 
 ::: columns
 ::: {.column width="50%"}
-![](images/dunning-kruger.svg)
+![Dunning-Krueger Effect](images/dunning-kruger.svg)
 :::
 
 ::: {.column width="50%"}
-![](images/gartner-hype.svg)
+![Gartner Hype Cycle](images/gartner-hype.svg)
 :::
 :::
 
-## [The valley of despair is the graduate school experience]{.small} {auto-animate="true" visibility="uncounted"}
+## [Cognitive bias is a huge obstacle for grad students]{.small} {auto-animate="true" visibility="uncounted"}
 
 ### Background
 
 ::: columns
 ::: {.column width="75%"}
-![](images/dunning-kruger.gif)
+![Dunning-Kruger Effect](images/dunning-kruger.gif)
 :::
 
 ::: {.column width="25%"}
-![](images/gartner-hype.svg)
+![Gartner Hype Cycle](images/gartner-hype.svg)
 :::
 :::
 
-## [The valley of despair is the graduate school experience]{.small} {auto-animate="true" visibility="uncounted"}
+## [The life cycle of a project can have ups and downs]{.small} {auto-animate="true" visibility="uncounted"}
 
 ### Background
 
 ::: columns
 ::: {.column width="25%"}
-![](images/dunning-kruger.svg)
+![Dunning-Kruger Effect](images/dunning-kruger.svg)
 :::
 
 ::: {.column width="75%"}
-![](images/gartner-hype.gif)
+![Gartner Hype Cycle](images/gartner-hype.gif)
 :::
 :::
 
@@ -149,19 +152,21 @@ http://www.avasthilab.org/2020/05/21/navigating-the-valley-of-despair-aka-years-
 
 ::: columns
 ::: {.column width="50%"}
-![](images/dunning-kruger-imposter.svg)
+![Dunning-Kruger Effect](images/dunning-kruger-imposter.svg)
 :::
 
 ::: {.column width="50%"}
-![](images/gartner-hype-imposter.svg)
+![Gartner Hype Cycle](images/gartner-hype-imposter.svg)
 :::
 :::
+
+[Bibliometrics can speed up your compentence and understanding of a project]{.fragment}
 
 ## [Bibliometrics provides an accesible framework for equitable scholarship]{.smaller}
 
 ### Background
 
-["\[Bibliometrics is\] The measurement of all aspects related to the publication and reading of books and documents."](https://www.nature.com/articles/510218e)
+["\[Bibliometrics is\] The measurement of all aspects related to the publication and reading of books and documents."](https://www.nature.com/articles/510218e){target="_blank"}
 
 ::: columns
 ::: {.column width="50%"}
@@ -240,14 +245,14 @@ Databases focus on different levels of content selection, curation, and comprehe
 :::
 :::
 
-[["Scopus and WoS compliment each others as neither resource is all inclusive"](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC1420322/)]{.smaller}
+[["Scopus and WoS compliment each others as neither resource is all inclusive"](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC1420322/){target="_blank"}]{.smaller}
 
 ## [Your database choice ***will*** affect your results]{style="font-size:0.80em"}
 
 ### Databases
 
 ::: notes
-[Each database has its benefits and drawbacks](https://direct.mit.edu/qss/article/2/1/20/97574/Large-scale-comparison-of-bibliographic-data), but scopus and web of science are the competing standard. They also have the best metadata curation for our analysis
+[Each database has its benefits and drawbacks](https://direct.mit.edu/qss/article/2/1/20/97574/Large-scale-comparison-of-bibliographic-data){target="_blank"}, but scopus and web of science are the competing standard. They also have the best metadata curation for our analysis
 
 https://paperpile.com/g/academic-research-databases/
 :::
@@ -276,35 +281,50 @@ Databases focus on different levels of content selection, curation, and comprehe
 :::
 :::
 
-[["Scopus and WOS compliment each others as neither resource is all inclusive"](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC1420322/)]{.smaller}
+[["Scopus and WOS compliment each others as neither resource is all inclusive"](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC1420322/){target="_blank"}]{.smaller}
 
-## WoS
+## [Signing up, search and exporting can be nuianced]{.small}
 
-### Databases
+### Databases 
 
-Mulidisciplinary
+- Register with university email for Scopus and WoS access when off university wifi/library VPN
+    - PubMed does not require registration at all
 
-2.4 billion references (1864 to present)
+::: {.columns}
+:::: {.column width="33%"}
 
-[https://clarivate.libguides.com/webofscienceplatform/coverage, accessed: 18/12/2023]{.smaller}
+-
+  - Scopus [(Multidisciplinary)]{.smaller}
+    - 82.4 million records
+    - 1788 – present
+    - bibtex 
+    - full record 
+    - 20,000 export limit
 
-## Scopus
+::::
 
-### Databases
+:::: {.column width="33%"}
+- 
+  - WoS [(Multidisciplinary)]{.smaller}
+    - Core, 79 million
+    - 1900 - present
+    - plaintext or bibtex 
+    - custom selection
+    - 1000 export limit
 
-Multidisciplinary (240 disciplines)
+::::
 
-![Scopus includes... (https://www.elsevier.com/products/scopus/content, accessed: 19/12/2023)](images/Scopus_Numbers_Image_15_Nov_2023_whitebackground.webp)
+:::: {.column width="33%"}
+- 
+  - PubMed [(Only life science and biomedical)]{.smaller}
+    - 35 million
+    - 1966 - present (*1809)
+    - plaintext
+    - pubmed format
+    - 10,000 export limit
 
-## PubMed
-
-### Databases
-
-Only life science and biomedical disciplines
-
-36 million citations and abstracts with links to full text
-
-[https://pubmed.ncbi.nlm.nih.gov/about/, accessed: 18/12/2023]{.smaller}
+::::
+:::
 
 ## Vocabulary is vital for a good search! {.smaller}
 
@@ -312,17 +332,24 @@ Only life science and biomedical disciplines
 
 controlled vocabulary thesaurus
 
--   [**Me**dical **S**ubject **H**eadings (MeSH) Tree](https://meshb.nlm.nih.gov/)
+-   [**Me**dical **S**ubject **H**eadings (MeSH) Tree](https://meshb.nlm.nih.gov/){target="_blank"}
 -   Search "controlled vocabulary thesaurus for \[biology\]"
 
 ::: {.fragment}
-Try [ChatGPT](https://chat.openai.com/)?
+Try [ChatGPT](https://chat.openai.com/){target="_blank"}?
 
 > What are keywords for \[microbial metagenomic metabolomic metabolite cancer research\]?
 
 > Create a controlled vocabulary for \[microbial metagenomic metabolomic metabolite cancer research\].
 
 :::
+
+```{r Timer vocab}
+#| echo: false
+countdown::countdown(minutes = 5, seconds = 0, warn_when = 120, 
+                     right = "0%", top = "10%",
+                     blink_colon = TRUE, id = "special_timer")
+```
 
 ## [Wildcards allow the capture of many individual words]{style="font-size:0.80em;"}
 
@@ -409,133 +436,11 @@ Scopus = 367 & PubMed = 248
 > TITLE-ABS-KEY ( "colorectal cancer\*" OR "colorectal neoplas\*" OR "adenomatous polyposis coli" OR "colon\* neoplas\*" OR "rectal neoplas\*" OR "hereditary nonpolypo\*" AND "metagenom\*" AND "metabol\*" )
 :::
 
-## [Sample Size goals of 500 - 1500 (i.e. ~1000) articles]{.small}
-
-### Databases
-
-```{r powerSim, echo=FALSE}
-#| echo: false
-#| eval: true
-# create a set of functions to generate simulated results
-library(tidyverse)
-
-powerDf <-
-  expand.grid(
-    sampSizePerGroup = ( 12 * 2^(0:7) ),
-    effectSize = c(.2, .5, .8),
-    alpha = c(0.005, 0.05)
-  ) %>%
-  tidyr::expand(effectSize, sampSizePerGroup, alpha) %>%
-  group_by(effectSize, sampSizePerGroup, alpha)
-
-runPowerSim <- function(df, nsims = 1000) {
-  p <- array(NA, dim = nsims)
-  for (s in 1:nsims) {
-    data <- data.frame(
-      y = rnorm(df$sampSizePerGroup * 2),
-      group = array(0, dim = df$sampSizePerGroup * 2)
-    )
-
-    data$group[1:df$sampSizePerGroup] <- 1
-    data$y[data$group == 1] <- data$y[data$group == 1] + df$effectSize
-    tt <- t.test(y ~ group, data = data)
-    p[s] <- tt$p.value
-  }
-  return(data.frame(power = mean(p < df$alpha)))
-}
-
-# run the simulation
-powerSimResults <- powerDf %>%
-  do(runPowerSim(.))
-
-```
-
-
-```{r plotPowerSim,echo=FALSE,fig.cap="Results from power simulation, showing power as a function of sample size, with effect sizes shown as different colors, and alpha shown as line type. The standard criterion of 80 percent power is shown by the dotted black line.",fig.width=6,fig.height=4,out.height='50%'}
-#| echo: false
-#| eval: true
-ggplot(powerSimResults,
-       aes(sampSizePerGroup,power,color=as.factor(effectSize),linetype=as.factor(alpha))) +
-  geom_line(size=1) +
-  annotate('segment',x=0,xend=max(powerDf$sampSizePerGroup),
-           y=0.8,yend=0.8,linetype='dotted',size=.5) +
-  scale_x_continuous( breaks=unique(powerDf$sampSizePerGroup)) +
-  labs(
-    color = "Effect size",
-    x = "Sample size",
-    y = "Power",
-    linetype = "alpha"
-  )
-```
-
-## [Filtration techniques are whatever work for you]{.small}
-
-### Databases
-
-::: {.notes}
-Prisma https://www.sciencedirect.com/science/article/pii/S0895435609001802?via%3Dihub
-
-80-20 method while scrolling through database? refer to a better way - metagear here?
-:::
-
-::: {.columns}
-:::: {.column width="65%"}
-![](images/prisma.png)
-::::
-
-:::: {.column width="35%"}
-Literature filtration
-
-- Prisma
-- 80:20
-- `metagear`?
-::::
-:::
-
-## [Signing up, search and exporting can be nuianced]{.small}
-
-### Databases 
-
-- Using a university email register for scop - wos 
-    - pubmed does not require registration
-
--   Export limitations 
-
-::: {.columns}
-:::: {.column width="33%"}
-
--
-  - Scopus 
-    - bibtex 
-    - full record 
-    - 20,000 
-
-::::
-
-:::: {.column width="33%"}
-- 
-  - WoS 
-    - plaintext or bibtex 
-    - custom selection
-    - 1000
-
-::::
-
-:::: {.column width="33%"}
-- 
-  - PubMed 
-    - plaintext
-    - pubmed format
-    - 10,000 
-
-::::
-:::
-
 ## Build a corpus for your interests
 
 ### Databases
 
-Focus on [WoS]() and [Scopus](https://www.scopus.com)
+Focus on [WoS](https://www.webofscience.com){target="_blank"} and/or [Scopus](https://www.scopus.com){target="_blank"}
 
 ::: {.notes}
 Keep in mind, from this point on a literature search should only ever take a maximum of 10-15 minutes.
@@ -543,7 +448,7 @@ Keep in mind, from this point on a literature search should only ever take a max
 Refer back to @tbl-wd, @tbl-bo, @tbl-ps
 :::
 
-```{r}
+```{r Timer corpus}
 #| echo: false
 countdown::countdown(minutes = 10, seconds = 0, warn_when = 120, 
                      right = "0%", top = "0%",
@@ -595,6 +500,158 @@ Wildcards, Boolean Operators, Phrase Searching
 :::
 :::
 
+
+## [Sample Size goals of 500 - 1500 articles]{.small}
+
+### Databases
+
+<style>
+.container {
+  position: relative;
+  width: 100%;
+}
+
+.image {
+  opacity: 1;
+  display: block;
+  width: 100%;
+  height: auto;
+  transition: .5s ease;
+  backface-visibility: hidden;
+}
+
+.middle {
+  transition: .5s ease;
+  opacity: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.container:hover .image {
+  opacity: 0.3;
+}
+
+.container:hover .middle {
+  opacity: 1;
+}
+
+.text {
+  background-color: #04AA6D;
+  color: white;
+  font-size: 16px;
+  padding: 16px 32px;
+}
+</style>
+
+<div class="container">
+  <img src="images/power-plot.png" alt="Avatar" class="image" style="width:100%">
+  <div class="middle">
+    Results from power simulation, showing power as a function of sample size, with effect sizes shown as different colors, and alpha shown as line type. The standard criterion of 80 percent power is shown by the dotted black line.
+  </div>
+</div>
+
+## [Filtration techniques are whatever work for you]{.small}{data-menu-title="Filtration techniques: Prisma"}
+
+### Databases
+
+::: {.notes}
+Prisma https://www.sciencedirect.com/science/article/pii/S0895435609001802?via%3Dihub
+
+80-20 method while scrolling through database? refer to a better way - metagear here?
+:::
+
+::: {.columns}
+:::: {.column width="65%"}
+![](images/prisma.png)
+::::
+
+:::: {.column width="35%"}
+Literature filtration
+
+::::: nonincremental
+- Prisma
+:::::
+::::
+:::
+
+## [Filtration techniques are whatever work for you]{.small}{data-menu-title="Filtration techniques:80:20"}
+
+### Databases
+
+::: {.notes}
+Prisma https://www.sciencedirect.com/science/article/pii/S0895435609001802?via%3Dihub
+
+80-20 method while scrolling through database? refer to a better way - metagear here?
+:::
+
+::: {.columns}
+:::: {.column width="65%" .absolute top=100 left=0}
+```{mermaid Flowchart}
+%%| echo: false
+%%| mermaid-format: png
+
+%%{init: {
+  "theme": "base",
+  'themeVariables': {
+    'lineColor': 'blue'
+  }
+}}%%
+
+flowchart TD;
+    A[Read the title] ==>|Interesting?| B[Skim the abstract];
+    A ==Not interesting?==> C[Discard];
+    B ==Still interesting?==> D[Skim the section headers and figures];
+    B ==Second thoughts?==> C;
+    D ==A worthwhile read?==> E[Read the Intro and Discussion!];
+    D ==Reconsidering?==> C;
+    E ==Something novel?==> F[Study the article by reviewing the Methods and Results];
+    E ==Meh?==> C;
+    F ==Good stuff cited?==> G[Dig into the references]
+
+%%    linkStyle 0,1,2,3,4,5,6,7,8 color:Orange,stroke:blue;
+```
+::::
+
+:::: {.column width="35%"}
+Literature filtration
+
+::::: nonincremental
+- [Prisma]{.op}
+- 80:20
+:::::
+::::
+:::
+
+## [Filtration techniques are whatever work for you]{.small}{data-menu-title="Filtration technique: `metagear`"}
+
+### Databases
+
+::: {.notes}
+Prisma https://www.sciencedirect.com/science/article/pii/S0895435609001802?via%3Dihub
+
+80-20 method while scrolling through database? refer to a better way - metagear here?
+:::
+
+::: {.columns}
+:::: {.column width="65%"}
+![](images/metagear-gui.png)
+::::
+
+:::: {.column width="35%"}
+Literature filtration
+
+::::: nonincremental
+- [Prisma]{.op}
+- [80:20]{.op}
+- `metagear`?
+:::::
+::::
+:::
+
 # A Shiny Approach
 
 ::: nonincremental
@@ -614,7 +671,7 @@ https://stat.ethz.ch/R-manual/R-devel/library/base/html/ns-dblcolon.html double 
 ::: panel-tabset
 #### Install
 
-```{r}
+```{r Install a library}
 #| eval: false
 #| echo: true
 # Install the bibliometrix package
@@ -624,7 +681,7 @@ install.packages('bibliometrix')
 
 #### Load
 
-```{r}
+```{r Load a library}
 #| eval: false
 #| echo: true
 # Load the bibliometrix library
@@ -634,7 +691,7 @@ library(bibliometrix) # Load and analyze bibliograpic data
 
 #### Run
 
-```{r}
+```{r Run a function}
 #| eval: false
 #| echo: true
 # Run the biblioshiny shiny application
@@ -644,7 +701,7 @@ biblioshiny()
 
 #### Quicker?
 
-```{r}
+```{r Install and lazy load}
 #| eval: false
 #| echo: true
 # Install the bibliometrix package
@@ -755,12 +812,12 @@ https://www.sciencedirect.com/science/article/pii/S2405844023002530?via%3Dihub
 
 ### A Shiny Approach
 
--   [First four sections - Domain focus at four different analyses](https://bibliometrix.org/biblioshiny/biblioshiny2.html)
+-   [First four sections - Domain focus at four different analyses](https://bibliometrix.org/biblioshiny/biblioshiny2.html){target="_blank"}
     -   For example, the `Sources` section is a great level for refining the journals in your RSS feed!
--   [Last three sections - Knowledge structures for rapid synthesis of understanding](https://bibliometrix.org/biblioshiny/biblioshiny3.html)
+-   [Last three sections - Knowledge structures for rapid synthesis of understanding](https://bibliometrix.org/biblioshiny/biblioshiny3.html){target="_blank"}
     -   For example, the `Conceptual Structure` is a great section for rapidly identifying key themes, trends, and keywords that are best to fundamentally understand or include in your controlled vocabulary thesuarus!
 
-```{r}
+```{r Timer biblioshiny}
 #| echo: false
 countdown::countdown(minutes = 10, seconds = 0, warn_when = 120, 
                      right = "0%", top = "0%",
@@ -790,7 +847,7 @@ To unlock the potential of a single library or package, need a script and other 
 ::: panel-tabset
 #### Libraries
 
-```{r}
+```{r All libraries}
 library(bibliometrix) # Load and analyze bibliograpic data
 
 library(tidyverse) # Organize the data structures
@@ -815,10 +872,10 @@ library(quanteda.textstats) # Analysis tool for readability
 #### Function
 
 ::: notes
-[Add `#| tidy.opts: { width.cutoff: 60 }` to the code block](https://stackoverflow.com/questions/76406452/wrap-horizontal-code-overflow-in-quarto-revealjs)
+[Add `#| tidy.opts: { width.cutoff: 60 }` to the code block](https://stackoverflow.com/questions/76406452/wrap-horizontal-code-overflow-in-quarto-revealjs){target="_blank"}
 :::
 
-```{r}
+```{r Boomstick function}
 #| eval: true
 #| echo: true
 #| output-location: column
@@ -883,7 +940,7 @@ boomstick <- function (packages) {
   }
 }
 
-libraries <- c("bibliometrix", "tidyverse", "DT", "gt", "easyPubMed", "xml2", "metagear", "clipr", "quanteda.textstats")  # Change/Add more package names as needed
+libraries <- c("bibliometrix", "tidyverse", "DT", "gt", "rentrez", "easyPubMed", "xml2", "metagear", "clipr", "quanteda.textstats")  # Change/Add more package names as needed
 boomstick(libraries)
 ```
 :::
@@ -895,7 +952,7 @@ boomstick(libraries)
 ::: panel-tabset
 #### [Bibliographic dataframes]{style="font-size:0.80em;"}
 
-```{r, results='hide'}
+```{r Create dataframes, results='hide'}
 wos <- convert2df(file = "data/wos-plaintext-savedrecs.txt", dbsource="wos",format="plaintext")
 
 scopus <- convert2df(file = "data/scopus-bib-crc.bib", dbsource = "scopus", format = "bibtex")
@@ -909,7 +966,7 @@ pubmed <- convert2df(file = "data/pubmed-plaintext-colorectal-set.txt", dbsource
 `#| classes: styled-output` to change the output code block to have a white boarder
 :::
 
-```{r}
+```{r Merge DFs}
 fulldb <- mergeDbSources(wos, scopus, pubmed, remove.duplicated = TRUE)
 ```
 :::
@@ -974,35 +1031,6 @@ saveRDS(fulldb, file = "wos-scopus-pubmed-fdb.rds")
 ```
 :::
 
-## A quick assessment of a function also helps!
-
-### A Scripted Approach
-
-::: fragment
-Make a dataframe with duplicates
-
-```{r}
-fulldb_wdup <- mergeDbSources(wos, scopus, pubmed,
-                              remove.duplicated = FALSE)
-```
-:::
-
-::: fragment
-Inspect the row count of the databases
-
-```{r}
-#| output-location: column-fragment
-a <- nrow(fulldb)
-
-b <- nrow(fulldb_wdup)
-
-c <- sum(nrow(wos)+nrow(scopus)+nrow(pubmed))
-
-cat("The row counts without duplications, with duplications, and all individual dataframes combined :", "",
-    a, b, c, sep = "\n")
-```
-:::
-
 ## The initial analysis is easily implemented
 
 ### A Scripted Approach
@@ -1037,7 +1065,7 @@ plot(results)
 ### A Scripted Approach
 
 ::: notes
-and try `glimpse(results)`
+and try `glimpse(results)` and `attributes(results)`
 :::
 
 ::: panel-tabset
@@ -1077,6 +1105,17 @@ glimpse(results[["ID"]])
 ### A Scripted Approach
 
 ::: panel-tabset
+
+#### Description
+
+A table:
+
+::: nonincremental
+-   The most globally cited articles
+-   Order by quantity of normalized citations
+-   From the combined dataframe
+:::
+
 #### Table
 
 ```{r}
@@ -1132,15 +1171,6 @@ mcp <- results[["MostCitedPapers"]] %>%  # separate most cited papers
   relocate(Links, NTC, TC, TCperYear, .before = DOI) # relocating column for aes.
 ```
 
-#### Description
-
-A table:
-
-::: nonincremental
--   The most globally cited articles
--   Order by quantity of citations
--   From the combined dataframe
-:::
 :::
 
 ## Extract citation data with simple functions
@@ -1153,6 +1183,11 @@ CR <- citations(fulldb)
 # or...
 LC <- localCitations(fulldb)
 ```
+
+:::{.callout-note collapse=true}
+Global Citation represents the total number of citations received by a document from all publications indexed in a source (Scopus, WOS, Google Scholar …), while Local Citation refers to the number of citations a document received from other documents in the specific search performed (that is, in the sample of highly specialised papers under review).
+[A scientometric analysis on entrepreneurial intention literature: Delving deeper into local citation](https://www.cell.com/heliyon/fulltext/S2405-8440(23)00253-0?_returnURL=https%3A%2F%2Flinkinghub.elsevier.com%2Fretrieve%2Fpii%2FS2405844023002530%3Fshowall%3Dtrue)
+:::
 
 ## A few base functions are great to examine data
 
@@ -1209,6 +1244,17 @@ rownames(head(CR$Cited))
 ### A Scripted Approach
 
 ::: panel-tabset
+#### Description
+
+A table:
+
+::: nonincremental
+-   The most locally cited articles
+-   That were cited by an article in our data
+-   Order by frequency of citation
+-   From the combined dataframe
+:::
+
 #### Table
 
 ```{r}
@@ -1272,15 +1318,6 @@ mcp_year <- CR %>%
   relocate(Links, .before = Source) 
 ```
 
-#### Description
-
-A table:
-
-::: nonincremental
--   The most locally cited articles
--   Order by quantity of citations
--   From the combined dataframe
-:::
 :::
 
 ## [Historiographs are easy to implement but difficult to read]{.small}
@@ -2050,9 +2087,9 @@ peaks[["df"]][["Reference"]][1]
 Google scholar:
 
 ::: nonincremental
--   Found [KHAN AA 1826 BIOCHIM BIOPHYS ACTA](https://scholar.google.com/scholar?hl=en&as_sdt=0%2C5&q=KHAN+AA+1826+BIOCHIM+BIOPHYS+ACTA+&btnG=)
+-   Found [KHAN AA 1826 BIOCHIM BIOPHYS ACTA](https://scholar.google.com/scholar?hl=en&as_sdt=0%2C5&q=KHAN+AA+1826+BIOCHIM+BIOPHYS+ACTA+&btnG=){target='_blank'}
 
--   Could not find [KHAN AA 1826 BIOCHIM BIOPHYS ACTA V2012 P331](https://scholar.google.com/scholar?hl=en&as_sdt=0%2C5&q=KHAN+AA+1826+BIOCHIM+BIOPHYS+ACTA+V2012+P331&btnG=)
+-   Could not find [KHAN AA 1826 BIOCHIM BIOPHYS ACTA V2012 P331](https://scholar.google.com/scholar?hl=en&as_sdt=0%2C5&q=KHAN+AA+1826+BIOCHIM+BIOPHYS+ACTA+V2012+P331&btnG=){target='_blank'}
 :::
 :::
 
@@ -2108,6 +2145,7 @@ summary(outlist)
 IQR(outlist)
 tfmin <- 2009 - (3 * 8)
 outlist[which(outlist < tfmin)]
+outlist[which(outlist > tfmin)]
 ```
 
 #### Code
@@ -2746,6 +2784,7 @@ nrow(dois)
 #### Gather function!
 
 ```{r}
+#| eval: false
 get_abstracts <- function(input_df) {
   n <- nrow(input_df)
   pb <- progress::progress_bar$new(
@@ -2796,6 +2835,11 @@ result_df <- get_abstracts(dois)
 ```
 
 #### Munge
+```{r}
+#| echo: false
+#| eval: true
+result_df <- readRDS("data/result_df.rds")
+```
 
 ```{r}
 almost_results <- result_df %>%
