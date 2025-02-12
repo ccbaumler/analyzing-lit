@@ -1,0 +1,199 @@
+/* Custom checkbox: circle that expands and slightly overlaps two circles */
+
+/* Please note the the red-circle must be called as a subclass to wavy-circle:
+<div class="wavy-sci-know">
+  <input type="checkbox" id="toggle-circle" />
+  <label for="toggle-circle" class="wavy-circle">All Scientific Knowledge</label>
+  <div class="red-circle"></div>
+</div>
+*/
+
+/* simple-sci-know is simple:
+::: simple-sci-know
+<input type="checkbox" id="circle-toggle"> <label for="circle-toggle" class="circle">All Scientific Knowledge</label>
+:::
+*/
+
+/* Hide the input checkbox */
+.simple-sci-know input[type="checkbox"],
+.wavy-sci-know input[type="checkbox"] {
+  display: none;
+}
+
+/* Default circle styles */
+.simple-sci-know .circle {
+  display: flex;
+  justify-content: center; /* Align horizontal */
+  align-items: center; /* Align vertical */
+  text-align: center;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: lightblue;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  font-size: 0.1em;
+  font-weight: bold;
+  /*text-shadow: #000 0px 0px 5px,   #000 0px 0px 5px,   #000 0px 0px 5px,
+               #000 0px 0px 5px,   #000 0px 0px 5px,   #000 0px 0px 5px;*/
+}
+
+/* Default circle styles with flower effect */
+.wavy-sci-know .wavy-circle {
+  display: flex;
+  justify-content: center; /* Align horizontal */
+  align-items: center; /* Align vertical */
+  text-align: center;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: lightblue;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  font-size: 0.1em;
+  font-weight: bold;
+  /*text-shadow: #000 0px 0px 5px,   #000 0px 0px 5px,   #000 0px 0px 5px,
+               #000 0px 0px 5px,   #000 0px 0px 5px,   #000 0px 0px 5px;*/
+  aspect-ratio: 1; /* Ensure the circle stays circular */
+  --g:/5.908% 5.908% radial-gradient(#000 calc(71% - 1px),#0000 71%) no-repeat;
+  mask: 100% 50% var(--g),99.606% 56.267% var(--g),98.429% 62.434% var(--g),96.489% 68.406% var(--g),93.815% 74.088% var(--g),90.451% 79.389% var(--g),86.448% 84.227% var(--g),81.871% 88.526% var(--g),76.791% 92.216% var(--g),71.289% 95.241% var(--g),65.451% 97.553% var(--g),59.369% 99.114% var(--g),53.14% 99.901% var(--g),46.86% 99.901% var(--g),40.631% 99.114% var(--g),34.549% 97.553% var(--g),28.711% 95.241% var(--g),23.209% 92.216% var(--g),18.129% 88.526% var(--g),13.552% 84.227% var(--g),9.549% 79.389% var(--g),6.185% 74.088% var(--g),3.511% 68.406% var(--g),1.571% 62.434% var(--g),0.394% 56.267% var(--g),0% 50% var(--g),0.394% 43.733% var(--g),1.571% 37.566% var(--g),3.511% 31.594% var(--g),6.185% 25.912% var(--g),9.549% 20.611% var(--g),13.552% 15.773% var(--g),18.129% 11.474% var(--g),23.209% 7.784% var(--g),28.711% 4.759% var(--g),34.549% 2.447% var(--g),40.631% 0.886% var(--g),46.86% 0.099% var(--g),53.14% 0.099% var(--g),59.369% 0.886% var(--g),65.451% 2.447% var(--g),71.289% 4.759% var(--g),76.791% 7.784% var(--g),81.871% 11.474% var(--g),86.448% 15.773% var(--g),90.451% 20.611% var(--g),93.815% 25.912% var(--g),96.489% 31.594% var(--g),98.429% 37.566% var(--g),99.606% 43.733% var(--g),radial-gradient(100% 100%,#000 46.953%,#0000 calc(46.953% + 1px));
+}
+
+/* Scale the circle larger on click */
+.simple-sci-know input[type="checkbox"]:checked + .circle {
+  width: 300px;
+  height: 300px;
+  font-size: 1.2em;
+  margin-bottom: 60px;
+}
+
+.wavy-sci-know input[type="checkbox"]:checked + .wavy-circle {
+  width: 300px;
+  height: 300px;
+  font-size: 1.2em;
+}
+
+/* Reset circle on third click */
+.simple-sci-know input[type="checkbox"]:checked:checked:checked + .circle,
+.wavy-sci-know input[type="checkbox"]:checked:checked:checked + .wavy-circle {
+  transform: scale(1);
+}
+
+.simple-sci-know .red-circle {
+  position: absolute;
+  right: 50%; /* Center the bump horizontally, adjust if needed */
+  transform: translateX(50%) translateY(0%); /* Adjust to position relative to circle */
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background-color: red;
+  border: 2px solid grey;
+  transition: width 0.3s ease, height 0.3s ease;
+  z-index: 10; /* Ensure it's above the wavy-circle */
+  /*pointer-events: none; /* Prevent interference with clicks */
+  display: block;
+}
+
+.wavy-sci-know .red-circle {
+  position: absolute;
+  top: 50%;
+  right: 0%;
+/*  transform: translate(-50%, 10%);*/
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background-color: red;
+  border: 2px solid grey;
+  transition: width 0.3s ease, height 0.3s ease;
+  z-index: 1; /* Ensure it's above the wavy-circle */
+  /*pointer-events: none; /* Prevent interference with clicks */
+  display: block;
+}
+
+.wavy-sci-know input[type="checkbox"]:checked ~ .red-circle::before {
+  content: "\2190" " You"; /* Unicode for up arrow */
+  white-space: pre;
+  position: absolute;
+  left: 150%; /* Adjust as needed to ensure visibility */
+  bottom: -100%;
+} 
+
+.simple-sci-know input[type="checkbox"]:checked ~ .red-circle::before {
+  content: "  \2191  " "\A" "You"; /* Unicode for up arrow */
+  white-space: pre;
+  position: absolute;
+  right: 50%; /* Center the arrow horizontally, adjust if needed */
+  transform: translateX(55%) translateY(00%); /* Adjust to position relative to circle */
+  z-index: -10 !important;
+  display: block;
+} 
+
+/* On checkbox checked, display the red circle */
+.wavy-sci-know input[type="checkbox"]:checked ~ .red-circle {
+  position: absolute;
+  top: 50%;
+  right: -1%;
+  width: 10px; /* Adjust size as needed */
+  height: 10px; /* Adjust size as needed */
+}
+
+/* On checkbox checked, display the red circle */
+.simple-sci-know input[type="checkbox"]:checked ~ .red-circle {
+  position: absolute;
+  bottom: 55px;
+  width: 10px; /* Adjust size as needed */
+  height: 10px; /* Adjust size as needed */
+}
+
+
+
+/* On hover, transform red-circle into a larger purple circle */
+.wavy-sci-know .red-circle:hover {
+  width: 150px !important; /* Adjust size as needed */
+  height: 150px !important; /* Adjust size as needed */
+  background-color: purple;
+  border: 2px solid darkviolet;
+  transition: width 0.3s ease, height 0.3s ease, background-color 0.3s ease;
+  transform: translateX(15%) translateY(-30%); 
+  z-index: 2;
+}
+
+/* Optionally, you can add a text label for the hover effect */
+.wavy-sci-know .red-circle:hover::after {
+  content: "Domain";
+  color: white; /* Text color */
+  font-size: 24px; /* Adjust font size */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* On hover, transform red-circle into a larger purple circle */
+.simple-sci-know .red-circle:hover {
+  width: 150px !important; /* Adjust size as needed */
+  height: 150px !important; /* Adjust size as needed */
+  background-color: purple;
+  border: 2px solid darkviolet;
+  transition: width 0.3s ease, height 0.3s ease, background-color 0.3s ease;
+  transform: translateX(50%) translateY(2%); 
+  z-index: 15 !important;
+}
+
+.simple-sci-know .red-circle:hover::before {
+  content: ""; /* Clear the content of the pseudo-element */
+  z-index: -1;
+  color: transparent;
+}
+
+/* Optionally, you can add a text label for the hover effect */
+.simple-sci-know .red-circle:hover::after {
+  content: "Domain";
+  color: white; /* Text color */
+  font-size: 24px; /* Adjust font size */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
