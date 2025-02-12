@@ -30,12 +30,23 @@ $code-color: $accent2 !default;
 $code-bg: #d3d3d3 !default;
 $code-block-bg: #d3d3d3 !default;
 $code-block-border-color: #7E98A8 !default;
+$mermaid-label-bg-color: $accent2 !default;
 
 
 
 /*-- scss:rules --*/
+.footer {
+  bottom: 10px !important;
+  //color: #58748f !important;
+}
 
-.reveal .slide a {
+.reveal .progress {
+    top: 0 !important;
+    height: 2% !important;
+    background-color: #4C4E52;//#273b50; 
+}
+
+.reveal .slide a:hover {
   text-decoration: underline;
 }
 
@@ -43,12 +54,12 @@ $code-block-border-color: #7E98A8 !default;
 
 .panel-tabset-tabby { 
   border-color: $body-bg !important;
-  //color: #547fac;
-  //text-decoration-color: #547fac;
+  color: $body-bg;
+  //text-decoration-color: #273b50;
 }
 
 .panel-tabset-tabby a {
-  color: #547fac; 
+  color: $body-bg; 
   font-family: 'Fira Code', monospace;
   font-weight: 400;
   font-size: 0.7em;
@@ -59,10 +70,21 @@ $code-block-border-color: #7E98A8 !default;
 }
 
 .panel-tabset [role=tab][aria-selected=true] {
-  color: #2C2C2C;
+  color: $accent2;
   background-color: $code-block-bg;
-  text-decoration-color: #2C2C2C;
-  border-color: $jet;
+  //text-decoration-color: $accent2;
+  border-bottom-color: $jet;
+  position: relative; // Ensures positioning for the pseudo-element
+}
+
+.panel-tabset [role=tab][aria-selected=true]::after {
+  content: ""; // Empty content for pseudo-element
+  position: absolute;
+  bottom: -2px; // Adjust as needed
+  left: 0;
+  right: 0;
+  height: 2px; // Underline height
+  background-color: $accent2; // Color of the underline
 }
 
 // Code chunk output style
@@ -99,6 +121,15 @@ $code-block-border-color: #7E98A8 !default;
       }
     }
   }
+}
+
+// center vertically and horizontally
+
+.center-xy {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          height: 70%;
 }
 
 // vertical scroll
@@ -176,6 +207,14 @@ $code-block-border-color: #7E98A8 !default;
   color: $accent2;
 }
 
+.smaller {
+  font-size: 0.5em; /* You can adjust this value to suit your needs */
+}
+
+.small {
+  font-size: 0.8em; /* You can adjust this value to suit your needs */
+}
+
 .fg {
   color: var(--col, $jet);
 }
@@ -188,7 +227,21 @@ $code-block-border-color: #7E98A8 !default;
 }
 
 .op {
-  opacity: var(--op, 0.25);
+  opacity: var(--op, 0.5);
+}
+
+.op-plot {
+  opacity: 1; /* Initial opacity */
+  transition: opacity 0.3s ease; /* Smooth transition */
+}
+
+.op-plot:active {
+  opacity: 0; /* Fully opaque when clicked */
+}
+
+.arrow {
+  content: "\1F896";
+  color: mix($accent, white, 60%);
 }
 
 // lists
@@ -207,8 +260,23 @@ $code-block-border-color: #7E98A8 !default;
 .reveal ul ul {
   list-style: none;
 
-  li:before {
+  li::before {
     content: $right-arrow;
+    color: mix($accent, white, 60%);
+    display: inline-block;
+    width: 1em;
+    margin-left: -1em;
+    margin-right: 0.5em;
+  }
+}
+
+.reveal ul ul ul {
+  list-style: none;
+  font-size: 0.7em;
+
+  li::before {
+    content: "\1F76E"; //https://en.wikipedia.org/wiki/List_of_Unicode_characters#Notational_systems
+    font-size: 0.7em;
     color: mix($accent, white, 60%);
     display: inline-block;
     width: 1em;
@@ -232,7 +300,7 @@ $code-block-border-color: #7E98A8 !default;
 
 .reveal .slide-menu-button {
   position: fixed;
-  top: 6px;
+  top: 12px;
   right: 0;
   display: flex;
   justify-content: flex-end;
@@ -284,8 +352,8 @@ $code-block-border-color: #7E98A8 !default;
 }
 
 .button:hover {
-  background-color: #027cff;
-  border-color: #027cff;
+  background-color: #0056b3;
+  border-color: #0056b3;
 }
 
 .button::before {
@@ -311,4 +379,122 @@ $code-block-border-color: #7E98A8 !default;
   width: auto;
   height: auto;
   object-fit: contain;
+}
+
+// hovertext https://sebhastian.com/html-hover-text/
+
+.hovertext {
+  position: relative;
+  border-bottom: 2px dotted grey;
+}
+
+.hovertext:before {
+  content: attr(data-hover);
+  font-size: 0.75em;
+  visibility: hidden;
+  opacity: 0;
+  white-space: pre-wrap;
+  width: var(--hover-width, 700px);
+  background-color: grey;
+  color: #fff;
+  text-align: left;
+  border-radius: 5px;
+  padding: 5px 0;
+  transition: opacity 1s ease-in-out;
+  position: absolute;
+  z-index: 1;
+  left: 50%;
+  bottom: 120%;
+  transform: translateX(-50%);
+
+  /* Allow text selection */
+  user-select: text;
+}
+
+.hovertext:hover:before {
+  z-index: 10;
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Use span to nest the tooltip-content within hovertext:
+<span class="hovertext">How did you professionally grow and what research did it help you accomplish?
+    <span class="tooltip-content">
+        The goal of the Initiative for Maximizing Student Development (IMSD) research training program is to <mark>strengthen research training environments and promote broader participation in the biomedical research workforce</mark> by expanding the pool of well-trained scientists earning a Ph.D., for example, encouraging the inclusion of individuals from underrepresented groups...
+    </span>
+</span>
+*/
+
+.tooltip-content {
+  visibility: hidden;
+  opacity: 0;
+  background-color: grey;
+  color: #fff;
+  text-align: center;
+  border-radius: 5px;
+  padding: 5px 0;
+  position: absolute;
+  z-index: 1000;
+  left: 10%;
+  bottom: 10%;
+  margin-bottom: 10px;
+  width: 700px; /* Adjust width as needed */
+  font-size: 0.75em;
+  transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+}
+
+.hovertext:hover .tooltip-content {
+  visibility: visible;
+  opacity: 1;
+}
+
+.tooltip-content:hover mark {
+  display: inline; /* Ensure mark is inline */
+  background: linear-gradient(90deg, #7efff5 50%, rgba(255, 255, 255, 0) 50%);
+  background-size: 200% 100%;
+  background-position: 100% 0;
+  -webkit-animation: highlight 1.5s 1 normal forwards;
+  animation: highlight 1.5s 1 normal forwards;
+}
+
+@-webkit-keyframes highlight {
+  from {
+    background-position: 100% 0;
+  }
+  to {
+    background-position: 0 0;
+  }
+}
+
+@keyframes highlight {
+  from {
+    background-position: 100% 0;
+  }
+  to {
+    background-position: 0 0;
+  }
+}
+
+/* Create sentence fragments 
+   https://stackoverflow.com/a/74650030 */
+
+.inline-fragment {
+  display: flex;
+}
+
+.inline-fragment p {
+  padding-right: 10px;
+}
+
+/* Hide the first fragment when the second one appears */
+.fragment.remove-on-next {
+  display: none;
+}
+
+.reveal .slides .fragment.visible.remove-on-next {
+  display: block;
+  background-color: rgba(0, 0, 0, 0.9);  /* Change background when fragment is visible */
+  color: #fff;
+  padding: 10px;
+  border-radius: 5px;
 }

@@ -3,8 +3,8 @@ title: "Mastering the Literature"
 subtitle: "Distill a Scientific Domain with Bibliometric Analysis in R"
 format: 
   revealjs:
-    theme: custom-dark.scss
-    css: [timer.css, checkbox.css]
+    theme: custom-light.scss
+    css: [timer.css, scientific-knowledge.css]
     preview-links: false
     incremental: true
     chalkboard: 
@@ -77,23 +77,104 @@ Backward course design for teaching - "What do you want the audience to take awa
 
 ### Background
 
-::: notes
+::: {.notes}
+
 The inherently unstructured nature of graduate school is a big hurdle to pushing the boundary of what is know - there is no guide
+
 :::
 
-::: columns
+::: {.columns}
+
 Graduate school
 
-::: {.column width="75%"}
+:::: {.column width="75%"}
+
 -   Understand what is known across a domain
 -   Identify and explain something that is unknown (Preferably, coherently)
 -   Ultimately, unstructured with many possible options
+
+::::
+
+:::: {.column width='25%'}
+
+::::
+
 :::
 
-::: {.column width="25%"}
-<input type="checkbox" id="circle-toggle"> <label for="circle-toggle" class="circle">All Scientific Knowledge</label>
+::: {.absolute right="100" top="10%"}
+
+<div class="simple-sci-know">
+  <input type="checkbox" id="circle-toggle">
+  <label for="circle-toggle" class="circle">All Scientific Knowledge</label>
+  <div class="red-circle"></div>
+</div>
+
 :::
+
+::: {.absolute left="0" bottom="0"}
+
+<div class="wavy-sci-know">
+  <input type="checkbox" id="toggle-circle" />
+  <label for="toggle-circle" class="wavy-circle">All Scientific Knowledge</label>
+  <div class="red-circle"></div>
+</div>
+
 :::
+
+## [Improve personal professional care with systematic approaches]{.small}
+
+### Background
+
+::: {.columns}
+
+:::: {.column}
+
+::::: {.r-stack}
+
+:::::: {.fragment}
+
+Feelings of:
+
+::::::: {.nonincremental .smaller}
+
+- guilt
+- all-consuming prioritization
+- wealth disparity
+- depression
+- anxiety
+- stupidity
+- uncertainty and disconnection (I.e. Lost)
+- urgency and pressure (I.e. time slipping away
+- regret
+- stress
+- isolation
+
+:::::::
+
+::::::
+
+::::::: {.fragment .remove-on-next}
+
+Solutions?
+
+- [grin and bear it](https://smea.uw.edu/currents/managing-graduate-school-with-depression/){target="_blank"}
+- too general to fully address the scope
+
+:::::::
+
+:::::
+
+::::
+
+:::: {.column}
+
+![[Navigating mental health challenges
+in graduate school](https://www.nature.com/articles/s41578-022-00444-x.pdf){.smaller}](images/graduate-school-mental-health.png){.lightbox}
+
+::::
+
+:::
+
 
 ## [The valley of despair is the graduate school experience]{.small} {auto-animate="true"}
 
@@ -102,7 +183,7 @@ Graduate school
 ::: notes
 Imposter syndrom
 
-dunning-krueger and grant hype cycle
+pop sci - dunning-krueger and grant hype cycle
 
 http://www.avasthilab.org/2020/05/21/navigating-the-valley-of-despair-aka-years-4-end-of-grad-school/
 :::
@@ -117,33 +198,7 @@ http://www.avasthilab.org/2020/05/21/navigating-the-valley-of-despair-aka-years-
 :::
 :::
 
-## [Cognitive bias is a huge obstacle for grad students]{.small} {auto-animate="true" visibility="uncounted"}
 
-### Background
-
-::: columns
-::: {.column width="75%"}
-![Dunning-Kruger Effect](images/dunning-kruger.gif)
-:::
-
-::: {.column width="25%"}
-![Gartner Hype Cycle](images/gartner-hype.svg)
-:::
-:::
-
-## [The life cycle of a project can have ups and downs]{.small} {auto-animate="true" visibility="uncounted"}
-
-### Background
-
-::: columns
-::: {.column width="25%"}
-![Dunning-Kruger Effect](images/dunning-kruger.svg)
-:::
-
-::: {.column width="75%"}
-![Gartner Hype Cycle](images/gartner-hype.gif)
-:::
-:::
 
 ## [The vallies are peak imposter syndrome]{.small} {auto-animate="true" visibility="uncounted"}
 
@@ -159,7 +214,9 @@ http://www.avasthilab.org/2020/05/21/navigating-the-valley-of-despair-aka-years-
 :::
 :::
 
-[Bibliometrics can speed up your compentence and understanding of a project]{.fragment}
+[Bibliometrics can rapidly build your compentence in a domain]{.fragment}
+
+[Bibliometrics can expose you to the techniques of a domain]{.fragment}
 
 ## [Bibliometrics provides an accesible framework for equitable scholarship]{.smaller}
 
@@ -185,6 +242,17 @@ http://www.avasthilab.org/2020/05/21/navigating-the-valley-of-despair-aka-years-
 :::
 :::
 
+## [Bibliometrics yields networks based on references]{.small}
+
+### Background
+
+{{< video https://www.youtube.com/watch?v=GW4s58u8PZo
+    title="A network of science: 150 years of Nature papers"
+    start="158"
+    aspect-ratio="16x9"
+    width="1000"
+>}}
+
 ## [Minimize your time in the Valley with bibliometrics]{style="font-size:0.80em;"}
 
 ### Background
@@ -193,7 +261,7 @@ http://www.avasthilab.org/2020/05/21/navigating-the-valley-of-despair-aka-years-
     -   A solid foundation of the necessary concepts
     -   The questions answered by the field
     -   Some open areas of discovery within the field
--   My purposed use of a bibliometric framework
+-   My proposed use of a bibliometric framework
     -   Use **reproducible** methods
     -   for **systematic** evaluation
     -   in a **quantifiable** way!
@@ -286,14 +354,14 @@ Databases focus on different levels of content selection, curation, and comprehe
 
 ### Databases 
 
-- Register with university email for Scopus and WoS access when off university wifi/library VPN
+- Register with university email for Scopus and WoS access when off university wifi/[library VPN](https://library.ucdavis.edu/vpn/)
     - PubMed does not require registration at all
 
 ::: {.columns}
 :::: {.column width="33%"}
 
 -
-  - Scopus [(Multidisciplinary)]{.smaller}
+  - [Scopus](https://www.scopus.com/search/form.uri?display=basic#basic){target="_blank"} [(Multidisciplinary)]{.smaller}
     - 82.4 million records
     - 1788 – present
     - bibtex 
@@ -304,7 +372,7 @@ Databases focus on different levels of content selection, curation, and comprehe
 
 :::: {.column width="33%"}
 - 
-  - WoS [(Multidisciplinary)]{.smaller}
+  - [WoS](https://www.webofscience.com/wos/woscc/basic-search){target="_blank"} [(Multidisciplinary)]{.smaller}
     - Core, 79 million
     - 1900 - present
     - plaintext or bibtex 
@@ -315,7 +383,7 @@ Databases focus on different levels of content selection, curation, and comprehe
 
 :::: {.column width="33%"}
 - 
-  - PubMed [(Only life science and biomedical)]{.smaller}
+  - [PubMed](https://pubmed.ncbi.nlm.nih.gov/){target="_blank"} [(Only life science and biomedical)]{.smaller}
     - 35 million
     - 1966 - present (*1809)
     - plaintext
@@ -435,6 +503,61 @@ Scopus = 367 & PubMed = 248
 > TITLE-ABS-KEY ( "colorectal cancer\*" OR "colorectal neoplas\*" OR "adenomatous polyposis coli" OR "colon\* neoplas\*" OR "rectal neoplas\*" OR "hereditary nonpolypo\*" AND "metagenom\*" AND "metabol\*" )
 :::
 
+## [Sample Size goals of 500 - 1500 articles]{.small}
+
+### Databases
+
+```{=html}
+<style>
+.container {
+  position: relative;
+  width: 100%;
+}
+
+.image {
+  opacity: 1;
+  display: block;
+  width: 100%;
+  height: auto;
+  transition: .5s ease;
+  backface-visibility: hidden;
+}
+
+.middle {
+  transition: .5s ease;
+  opacity: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.container:hover .image {
+  opacity: 0.3;
+}
+
+.container:hover .middle {
+  opacity: 1;
+}
+
+.text {
+  background-color: #04AA6D;
+  color: white;
+  font-size: 16px;
+  padding: 16px 32px;
+}
+</style>
+
+<div class="container">
+  <img src="images/power-plot.png" alt="Avatar" class="image" style="width:100%">
+  <div class="middle">
+    Results from power simulation, showing power as a function of sample size, with effect sizes shown as different colors, and alpha shown as line type. The standard criterion of 80 percent power is shown by the dotted black line.
+  </div>
+</div>
+```
+
 ## Build a corpus for your interests
 
 ### Databases
@@ -499,60 +622,6 @@ Wildcards, Boolean Operators, Phrase Searching
 :::
 :::
 
-
-## [Sample Size goals of 500 - 1500 articles]{.small}
-
-### Databases
-
-<style>
-.container {
-  position: relative;
-  width: 100%;
-}
-
-.image {
-  opacity: 1;
-  display: block;
-  width: 100%;
-  height: auto;
-  transition: .5s ease;
-  backface-visibility: hidden;
-}
-
-.middle {
-  transition: .5s ease;
-  opacity: 0;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  -ms-transform: translate(-50%, -50%);
-  text-align: center;
-}
-
-.container:hover .image {
-  opacity: 0.3;
-}
-
-.container:hover .middle {
-  opacity: 1;
-}
-
-.text {
-  background-color: #04AA6D;
-  color: white;
-  font-size: 16px;
-  padding: 16px 32px;
-}
-</style>
-
-<div class="container">
-  <img src="images/power-plot.png" alt="Avatar" class="image" style="width:100%">
-  <div class="middle">
-    Results from power simulation, showing power as a function of sample size, with effect sizes shown as different colors, and alpha shown as line type. The standard criterion of 80 percent power is shown by the dotted black line.
-  </div>
-</div>
-
 ## [Filtration techniques are whatever work for you]{.small}{data-menu-title="Filtration techniques: Prisma"}
 
 ### Databases
@@ -588,31 +657,8 @@ Prisma https://www.sciencedirect.com/science/article/pii/S0895435609001802?via%3
 :::
 
 ::: {.columns}
-:::: {.column width="65%" .absolute top=100 left=0}
-```{mermaid Flowchart}
-%%| echo: false
-%%| mermaid-format: png
-
-%%{init: {
-  "theme": "base",
-  'themeVariables': {
-    'lineColor': 'blue'
-  }
-}}%%
-
-flowchart TD;
-    A[Read the title] ==>|Interesting?| B[Skim the abstract];
-    A ==Not interesting?==> C[Discard];
-    B ==Still interesting?==> D[Skim the section headers and figures];
-    B ==Second thoughts?==> C;
-    D ==A worthwhile read?==> E[Read the Intro and Discussion!];
-    D ==Reconsidering?==> C;
-    E ==Something novel?==> F[Study the article by reviewing the Methods and Results];
-    E ==Meh?==> C;
-    F ==Good stuff cited?==> G[Dig into the references]
-
-%%    linkStyle 0,1,2,3,4,5,6,7,8 color:Orange,stroke:blue;
-```
+:::: {.column width="65%"}
+![](images/mermaid-flowchart.svg){width=75%}
 ::::
 
 :::: {.column width="35%"}
@@ -1178,6 +1224,7 @@ mcp <- results[["MostCitedPapers"]] %>%  # separate most cited papers
 
 ```{r}
 # Frequency distribution of local citations
+fulldb$CR <- fulldb$CR_raw
 CR <- citations(fulldb)
 # or...
 LC <- localCitations(fulldb)
@@ -1228,7 +1275,7 @@ typeof(CR)
 #### attributes
 
 ```{r}
-attributes(head(CR$Cited))
+#attributes(head(CR$Cited))
 ```
 
 #### rownames
@@ -2888,7 +2935,7 @@ effort_distribute(speedrun, reviewers = 'Colton', initialize = TRUE, save_split 
 #| echo: true
 #| eval: false
 # Open a GUI (80:20 method!)
-abstract_screener(file = 'effort_Colton14.csv', aReviewer = 'Colton', abstractColumnName = 'AB', titleColumnName = 'TI', windowWidth = 120, highlightKeywords = c("metabol", "metagenom", "bacteria", "colon", "rectal", "gut", "bile", "fatty", "choline"))
+abstract_screener(file = 'effort_Colton.csv', aReviewer = 'Colton', abstractColumnName = 'AB', titleColumnName = 'TI', windowWidth = 120, highlightKeywords = c("metabol", "metagenom", "bacteria", "colon", "rectal", "gut", "bile", "fatty", "choline"))
 ```
 
 ![](images/metagear-gui.png)
